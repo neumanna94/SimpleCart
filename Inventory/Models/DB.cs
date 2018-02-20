@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 using MySql.Data.MySqlClient;
-namespace World.Models
+namespace Inventory.Models
 {
     public class DB
     {

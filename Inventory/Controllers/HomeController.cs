@@ -1,7 +1,9 @@
+using System;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Inventory.Models;
-using System.Collections.Generic;
-using System;
 
 namespace Inventory.Controllers
 {
@@ -12,7 +14,7 @@ namespace Inventory.Controllers
         {
             return View();
         }
-        [HttpPost("/")]
+        [HttpPost("/AmazonInventory")]
         public ActionResult IndexPost()
         {
 
@@ -21,11 +23,15 @@ namespace Inventory.Controllers
         [HttpPost("/AddItem")]
         public ActionResult AddItem()
         {
-            string description = Request.Form["description"];
-            Item newItem = new Item(description, 0);
+            string name = Request.Form["name"];
+            string stringCost = Request.Form["cost"];
+            int cost = 0;
+            if(stringCost != "")
+            {
+                cost = Int32.Parse(stringCost);
+            }
+            Item newItem = new Item(name, cost, "", 0);
             newItem.Save();
-
-
             return View("Index");
         }
     }
