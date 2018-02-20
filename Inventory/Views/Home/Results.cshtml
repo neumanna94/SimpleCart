@@ -15,6 +15,13 @@
           <div class = "row">
             <div class = "col-md-12">
             <button type="button" class="btn"><a href="/">Home</a></button>
+            <form id="submitItem" action = "/AmazonInventory/order" method = "post">
+                <select class="form-control" id="order">
+                    <option value="alpha">Alphabetically</option>
+                    <option value="cost">Cost</option>
+                </select>
+            <button type="submit" id="sub" class="btn btn-secondary">Sort</button>
+            </form>
             <h2> Results </h2>
             @if (Model != null)
             {

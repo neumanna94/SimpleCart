@@ -14,15 +14,27 @@ namespace Inventory.Controllers
         {
             return View();
         }
-        [HttpPost("/AmazonInventory")]
-        public ActionResult IndexPost()
+        [HttpGet("/AmazonInventory")]
+        public ActionResult AmazonInventory_default_Get()
         {
-
             return View("Results", Item.GetAll());
         }
-        [HttpGet("/AmazonInventory")]
-        public ActionResult IndexGet()
+        [HttpPost("/AmazonInventory")]
+        public ActionResult AmazonInventory_default_post()
         {
+            return View("Results", Item.GetAll());
+        }
+        [HttpPost("/AmazonInventory/order")]
+        public ActionResult AmazonInventory_Alphabetically()
+        {
+            string sortBy = Request.Form["order"];
+            if(sortBy == "alpha")
+            {
+                Item.SortAlpha();
+            } else if(sortBy == "cost")
+            {
+                Item.SortCost();
+            }
 
             return View("Results", Item.GetAll());
         }
@@ -49,7 +61,7 @@ namespace Inventory.Controllers
         public ActionResult deleteItem(int id)
         {
             Item.DeleteRow(id);
-            return RedirectToAction("IndexGet");
+            return RedirectToAction("/AmazonInventory");
         }
     }
 }
