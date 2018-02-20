@@ -9,22 +9,16 @@
   </head>
   <body>
       <div class = "container">
-          <div class = "jumbotron">
-              <h1>Inventory w/SQL</h1>
-          </div>
           <div class = "row">
             <div class = "col-md-12">
-            <button type="button" class="btn"><a href="/">Home</a></button>
             <h2> Results </h2>
             @if (Model != null)
             {
-                @foreach(var item in Model)
-                {
-                  <h3>Contact<a href='/@item.GetId()'> @item.GetId() </a></h3>
-                  <h4>Name:@item.GetName()</h4>
-                  <h4>Cost:@item.GetCost()</h4>
-                  <h4>PostDate:@item.GetPostDate()</h4>
-                }
+                  <h4>Name:@Model.GetName()</h4>
+                  <h4>Cost:@Model.GetCost()</h4>
+                  <h4>PostDate:@Model.GetPostDate()</h4>
+                  <button type="button" class="btn"><a href="/">Home</a></button>
+                  <button type="button" class="btn"><a href="/delete/@Model.GetId()">Delete this Inventory Item</a></button>
             }
             </div>
         </div>

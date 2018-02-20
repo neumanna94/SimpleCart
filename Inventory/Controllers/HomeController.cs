@@ -20,6 +20,12 @@ namespace Inventory.Controllers
 
             return View("Results", Item.GetAll());
         }
+        [HttpGet("/AmazonInventory")]
+        public ActionResult IndexGet()
+        {
+
+            return View("Results", Item.GetAll());
+        }
         [HttpPost("/AddItem")]
         public ActionResult AddItem()
         {
@@ -33,6 +39,17 @@ namespace Inventory.Controllers
             Item newItem = new Item(name, cost, "", 0);
             newItem.Save();
             return View("Index");
+        }
+        [HttpGet("/{id}")]
+        public ActionResult ItemDetail(int id)
+        {
+            return View(Item.Find(id));
+        }
+        [HttpGet("delete/{id}")]
+        public ActionResult deleteItem(int id)
+        {
+            Item.DeleteRow(id);
+            return RedirectToAction("IndexGet");
         }
     }
 }
