@@ -27,15 +27,13 @@ namespace Inventory.Controllers
         [HttpPost("/AmazonInventory/orderAlpha")]
         public ActionResult AmazonInventory_Alphabetically()
         {
-            Console.WriteLine("Alpha");
-            Item.SortAlpha();
+            Item.SetOrderBy("name");
             return RedirectToAction("AmazonInventory_default_Get");
         }
         [HttpPost("/AmazonInventory/orderCost")]
         public ActionResult AmazonInventory_ByCost()
         {
-            Console.WriteLine("Cost");
-            Item.SortCost();
+            Item.SetOrderBy("cost");
             return RedirectToAction("AmazonInventory_default_Get");
         }
         [HttpPost("/AddItem")]
@@ -52,7 +50,7 @@ namespace Inventory.Controllers
             newItem.Save();
             return View("Index");
         }
-        [HttpGet("/{id}")]
+        [HttpGet("/items/{id}")]
         public ActionResult ItemDetail(int id)
         {
             return View(Item.Find(id));

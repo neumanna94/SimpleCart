@@ -11,6 +11,7 @@ namespace Inventory.Models
         private string _name;
         private int _cost;
         private string _postDate = "";
+        public static string _orderBy = "id";
 
         public Item(string name, int cost, string postDate, int Id = 0)
         {
@@ -34,6 +35,10 @@ namespace Inventory.Models
         public string GetPostDate()
         {
             return _postDate;
+        }
+        public static void SetOrderBy(string orderBy)
+        {
+            _orderBy = orderBy;
         }
         public void Save()
         {
@@ -75,9 +80,14 @@ namespace Inventory.Models
             conn.Open();
             //Casting and Executing Commands.
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon;";
-            //End of CommandText
-            //Using Data Reader Object(Represents actual reading of SQL database.)
+            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY "+_orderBy+";";
+
+            // MySqlParameter searchId = new MySqlParameter();
+            // searchId.ParameterName = "@searchId";
+            // searchId.Value = "cost";
+            // cmd.Parameters.Add(searchId);
+            // cmd.Parameters.AddWithValue("@searchId", "cost");
+
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             //Contains built in method .Read()
             while(rdr.Read())
@@ -131,36 +141,7 @@ namespace Inventory.Models
             }
             return newItem;
         }
-        public static void SortAlpha()
-        {
-            Console.WriteLine("alpha2");
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY name;";
 
-            var rdr = cmd.ExecuteReader() as MySqlDataReader;
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-        }
-        public static void SortCost()
-        {
-            Console.WriteLine("cost2");
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY cost;";
-
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-        }
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
