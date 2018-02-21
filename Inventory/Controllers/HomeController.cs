@@ -55,11 +55,11 @@ namespace Inventory.Controllers
         {
             return View(Item.Find(id));
         }
-        [HttpGet("delete/{id}")]
+        [HttpGet("/delete/{id}")]
         public ActionResult deleteItem(int id)
         {
             Item.DeleteRow(id);
-            return RedirectToAction("/AmazonInventory");
+            return RedirectToAction("AmazonInventory_default_Get");
         }
     }
 }
