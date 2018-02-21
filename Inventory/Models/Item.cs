@@ -133,12 +133,13 @@ namespace Inventory.Models
         }
         public static void SortAlpha()
         {
+            Console.WriteLine("alpha2");
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY name";
+            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY name;";
 
-            cmd.ExecuteNonQuery();
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
             conn.Close();
             if (conn != null)
             {
@@ -147,10 +148,11 @@ namespace Inventory.Models
         }
         public static void SortCost()
         {
+            Console.WriteLine("cost2");
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY cost";
+            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY cost;";
 
             cmd.ExecuteNonQuery();
             conn.Close();

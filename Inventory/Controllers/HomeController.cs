@@ -24,19 +24,19 @@ namespace Inventory.Controllers
         {
             return View("Results", Item.GetAll());
         }
-        [HttpPost("/AmazonInventory/order")]
+        [HttpPost("/AmazonInventory/orderAlpha")]
         public ActionResult AmazonInventory_Alphabetically()
         {
-            string sortBy = Request.Form["order"];
-            if(sortBy == "alpha")
-            {
-                Item.SortAlpha();
-            } else if(sortBy == "cost")
-            {
-                Item.SortCost();
-            }
-
-            return View("Results", Item.GetAll());
+            Console.WriteLine("Alpha");
+            Item.SortAlpha();
+            return RedirectToAction("AmazonInventory_default_Get");
+        }
+        [HttpPost("/AmazonInventory/orderCost")]
+        public ActionResult AmazonInventory_ByCost()
+        {
+            Console.WriteLine("Cost");
+            Item.SortCost();
+            return RedirectToAction("AmazonInventory_default_Get");
         }
         [HttpPost("/AddItem")]
         public ActionResult AddItem()
