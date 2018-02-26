@@ -26,12 +26,6 @@ _{alexander.daniel.neumann@gmail.com}_
 ## Technologies Used
 
 _{HTML, CSS, C#, ASP.NET MVC 1.1.3,Unit Testing, MAMP, SQL, MyPhpAdmin}_
-private int _id;
-private string _name;
-private string _description;
-private double _cost;
-private string _imgUrl;
-private int _stock;
 
 ## _{Specifications}_
 ## Class Name: User
