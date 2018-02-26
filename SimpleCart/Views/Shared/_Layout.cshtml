@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <title>Simple Template Layout</title>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <script src="~/js/jquery-3.2.1.min.js"></script>
     <link rel='stylesheet' href="~/css/styles.css">
   </head>
   <body>
     @RenderBody()
+    @Html.Partial("Footer")
   </body>
 </html>
