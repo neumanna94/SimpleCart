@@ -11,16 +11,17 @@
     {
         <div class="row">
             <div class="col-md-7">
-                <a href="/Item/Detail/@item.GetId()">@item.GetName()</a>
-                <img src="@item.GetImgUrl()" alt="Picture">
+                <h3><a href="/Item/Detail/@item.GetId()">@item.GetName()</a> </h3>
+                <hr>
+                <img src="@item.GetImgUrl()" alt="Picture" height="400" width="400">
             </div>
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3> @item.GetCost() </h3>
+                        <h2> $ @item.GetCost() </h2>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" name="button">Add to Cart</button>
+                        <a href="/User/Cart/@item.GetId()"><button type="button" class="btn">Add to Cart</button></a>
                     </div>
                 </div>
                 <div class="row">
