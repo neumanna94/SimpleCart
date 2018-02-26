@@ -9,43 +9,56 @@ namespace SimpleCart.Models
     {
         private int _id;
         private string _name;
-        private int _cost;
-        private string _postDate = "";
-        public static string _orderBy = "id";
+        private string _description;
+        private double _cost;
+        private string _imgUrl;
+        private int _stock;
 
-        public Item(string name, int cost, string postDate, int Id = 0)
+        public Item(string name, string description, double cost, string imgUrl, int stock)
         {
-            _id = Id;
             _name = name;
             _cost = cost;
-            _postDate = postDate;
+            _description = description;
+            _imgUrl = imgUrl;
+            _stock = stock;
         }
+
+        public void SetId(int id)
+        {
+          _id = id;
+        }
+
         public int GetId()
         {
             return _id;
         }
+
         public string GetName()
         {
             return _name;
         }
-        public int GetCost()
+
+        public double GetCost()
         {
             return _cost;
         }
-        public string GetPostDate()
+
+        public string GetDescription()
         {
-            return _postDate;
+          return _description;
         }
-        public static void SetOrderBy(string orderBy)
+
+        public string GetImgUrl()
         {
-            _orderBy = orderBy;
+          return _imgUrl;
         }
+
         public void Save()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO inventory_amazon (name, cost, postDate) VALUES (@ItemName, @ItemCost, @ItemPostDate);";
+            cmd.CommandText = @"INSERT INTO inventory_amazon (name, cost, description, imgUrl, stock ) VALUES (@itemName, @itemCost, @itemDescription, @itemImgUrl, @itemStock;";
 
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@ItemName";
@@ -57,10 +70,15 @@ namespace SimpleCart.Models
             cost.Value = _cost;
             cmd.Parameters.Add(cost);
 
-            MySqlParameter postDate = new MySqlParameter();
-            postDate.ParameterName = "@ItemPostDate";
-            postDate.Value = _postDate;
-            cmd.Parameters.Add(postDate);
+            MySqlParameter description = new MySqlParameter("@itemDescription", _description);
+            cmd.Parameters.Add(description);
+
+            MySqlParameter imgUrl = new MySqlParameter("@imgUrl", _imgUrl);
+            cmd.Parameters.Add(imgUrl);
+
+            MySqlParameter stock = new MySqlParameter("@stock", _stock);
+            cmd.Parameters.Add(stock);
+
             cmd.ExecuteNonQuery();
 
             _id = (int) cmd.LastInsertedId;
@@ -72,7 +90,7 @@ namespace SimpleCart.Models
             }
         }
 
-        public static List<Item> GetAll()
+        public static List<Item> GetAll(orderBy)
         {
             //Opening Database Connection.
             List<Item> allItems = new List<Item> {};
@@ -80,13 +98,7 @@ namespace SimpleCart.Models
             conn.Open();
             //Casting and Executing Commands.
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY "+_orderBy+";";
-
-            // MySqlParameter searchId = new MySqlParameter();
-            // searchId.ParameterName = "@searchId";
-            // searchId.Value = "cost";
-            // cmd.Parameters.Add(searchId);
-            // cmd.Parameters.AddWithValue("@searchId", "cost");
+            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY "+orderBy+";";
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             //Contains built in method .Read()
@@ -94,10 +106,14 @@ namespace SimpleCart.Models
             {
               int itemId = rdr.GetInt32(0);
               string name = rdr.GetString(1);
-              int cost = rdr.GetInt32(2);
-              string postDate = rdr.GetString(3);
+              string description = rdr.GetString(2);
+              double cost = rdr.GetDouble(3);
+              string imgUrl = rdr.GetString(4);
+              int stock = rdr.GetInt32(5);
 
-              Item newItem = new Item(name, cost, postDate, itemId);
+
+              Item newItem = new Item(name, description, cost, imgUrl, stock);
+              newItem.SetId(itemId);
               allItems.Add(newItem);
             }
             //Close connection
@@ -121,19 +137,26 @@ namespace SimpleCart.Models
             cmd.Parameters.Add(searchId);
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
             int itemId = 0;
             string name = "";
-            int cost = 0;
-            string postDate = "";
+            string description = "";
+            double cost = 0;
+            string imgUrl = "";
+            int stock = 0;
 
             while(rdr.Read())
             {
-                itemId = rdr.GetInt32(0);
-                name = rdr.GetString(1);
-                cost = rdr.GetInt32(2);
-                postDate = rdr.GetString(3);
+              itemId = rdr.GetInt32(0);
+              name = rdr.GetString(1);
+              description = rdr.GetString(2);
+              cost = rdr.GetDouble(3);
+              imgUrl = rdr.GetString(4);
+              stock = rdr.GetInt32(5);
             }
-            Item newItem = new Item(name, cost, postDate, itemId);
+
+            Item newItem = new Item(name, description, cost, imgUrl, stock);
+            newItem.SetId(itemId);
             conn.Close();
             if (conn != null)
             {
@@ -142,20 +165,21 @@ namespace SimpleCart.Models
             return newItem;
         }
 
-        public static void DeleteAll()
-        {
-            MySqlConnection conn = DB.Connection();
-            conn.Open();
-            var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM items;";
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            if (conn != null)
-            {
-                conn.Dispose();
-            }
-        }
-        public static void DeleteRow(int idDelete)
+        // public static void DeleteAll()
+        // {
+        //     MySqlConnection conn = DB.Connection();
+        //     conn.Open();
+        //     var cmd = conn.CreateCommand() as MySqlCommand;
+        //     cmd.CommandText = @"DELETE FROM items;";
+        //     cmd.ExecuteNonQuery();
+        //     conn.Close();
+        //     if (conn != null)
+        //     {
+        //         conn.Dispose();
+        //     }
+        // }
+
+        public static void Delete(int idDelete)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -174,17 +198,17 @@ namespace SimpleCart.Models
                 conn.Dispose();
             }
         }
-        public static string DisplayList()
-        {
-            List<Item> allItems = new List<Item>{};
-            string outputString = "";
-            allItems = GetAll();
-            for(int i = 0; i < allItems.Count; i ++)
-            {
-                outputString += "(" + allItems[i].GetId() + ", " + allItems[i].GetName() + ", " + allItems[i].GetCost() + ", " + allItems[i].GetPostDate() +  ") ";
-            }
-            return outputString;
-        }
+        // public static string DisplayList()
+        // {
+        //     List<Item> allItems = new List<Item>{};
+        //     string outputString = "";
+        //     allItems = GetAll();
+        //     for(int i = 0; i < allItems.Count; i ++)
+        //     {
+        //         outputString += "(" + allItems[i].GetId() + ", " + allItems[i].GetName() + ", " + allItems[i].GetCost() + ", " + allItems[i].GetPostDate() +  ") ";
+        //     }
+        //     return outputString;
+        // }
     }
 
 }
