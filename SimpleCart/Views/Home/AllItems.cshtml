@@ -1,18 +1,37 @@
 @{
   Layout = "_Layout";
 }
-<body>
-  <div class = "container">
+
+<div class = "container">
     <div class = "jumbotron">
       <h1>Simple Cart Site</h1>
     </div>
-  <div class = "row">
-    <div class="col-md-12">
-      <h1>All Items</h1>
-      Code to Display all items goes here.
+    <div class="container">
+    @foreach (var item in Model)
+        <div class="row">
+            <div class="col-md-7">
+                <a href="/Item/Detail/@item.GetId()">@item.GetName()</a>
+                <img src="@Model.GetImage()" alt="Picture">
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3> @item.GetCost() </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" name="button">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3> @item.GetDescription()</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</body>
+</div>
+
 
 <script src="text/javascript">
 $(document).ready(function(){

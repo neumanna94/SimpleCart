@@ -1,7 +1,7 @@
 @{
   Layout = "_Layout";
 }
-<body>
+
   <div class = "container">
     <div class = "jumbotron">
       <h1>Simple Cart Site</h1>
@@ -12,30 +12,30 @@
         <form action='/User/Form/Register' method='post'>
           <div class='form-group'>
             <label for='name'>Name</label>
-            <input id='name' name='name' class='form-control' type='text'>
+            <input id='nameForm' name='nameForm' class='form-control' type='text'>
           </div>
           <div class='form-group'>
-            <label for='username'>Username</label>
-            <input id='username' name='username' class='form-control' type='text'>
+            <label for='usernameForm'>Username</label>
+            <input id='usernameForm' name='usernameForm' class='form-control' type='text'>
           </div>
           <div class='form-group'>
-            <label for='password'>Password</label>
-            <input id='password' name='password' class='form-control' type='text'>
+            <label for='passwordForm'>Password</label>
+            <input id='passwordForm' name='passwordForm' class='form-control' type='text'>
           </div>
           <div class='form-group'>
-            <label for='address'>Address</label>
-            <input id='address' name='address' class='form-control' type='text'>
+            <label for='addressForm'>Address</label>
+            <input id='addressForm' name='addressForm' class='form-control' type='text'>
           </div>
           <div class='form-group'>
-            <label for='email'>Email</label>
-            <input id='email' name='email' class='form-control' type='text'>
+            <label for='emailForm'>Email</label>
+            <input id='emailForm' name='emailForm' class='form-control' type='text'>
           </div>
-          <button type="submit" class="btn">Create a new Account</button>
-          <button type="button" class="btn"><a href='/'>Login</a></button>
+          <a href="/Item"><button type="submit" class="btn">Register</button></a>
+          <a href="/"><button type="button" class="btn">Login</button></a>
         </form>
     </div>
   </div>
-</body>
+
 
 <script src="text/javascript">
 $(document).ready(function(){

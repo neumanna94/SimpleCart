@@ -1,7 +1,7 @@
 @{
   Layout = "_Layout";
 }
-<body>
+
   <div class = "container">
     <div class = "jumbotron">
       <h1>Simple Cart Site</h1>
@@ -9,10 +9,22 @@
   <div class = "row">
     <div class="col-md-12">
       <h1>My Cart</h1>
-      Code to Display all items in a user Cart goes here.
+      @foreach (var item in Model)
+      {
+        <div class="row">
+          <div class="col-md-7">
+            <a href="/Item/@item.GetId()/Detail"> <p>@item.GetName()</p></a>
+          </div>
+          <div class="col-md-5">
+            <a href="/Item/@item.GetId()/Remove"> <button type="button" class="btn"> Remove </button></a>
+          </div>
+        </div>
+      }
     </div>
   </div>
-</body>
+  <a href="/Order/Success"><button type="button" name="button">Proceed to Checkout</button></a>
+  <a href="/Item"> <button type="button" name="button">Continue Shopping</button></a>
+
 
 <script src="text/javascript">
 $(document).ready(function(){
