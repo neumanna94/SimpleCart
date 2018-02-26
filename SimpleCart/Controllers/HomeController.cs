@@ -9,7 +9,13 @@ namespace SimpleCart.Controllers
 {
     public class HomeController : Controller
     {
-      [HttpGet("/User/Form/Register")]
+        [HttpGet("/")]
+        public ActionResult Index()
+        {
+            return View("Login");
+        }
+
+      [HttpGet("/User/Form")]
       public ActionResult RegisterGET()
       {
           return View("Register");
@@ -21,9 +27,8 @@ namespace SimpleCart.Controllers
           string username = Request.Form["username"];
           string password = Request.Form["password"];
           string address = Request.Form["address"];
-          string number = Request.Form["email"];
-
-          return View("Register");
+          string email = Request.Form["email"];
+          return RedirectToAction("AllItemsGET");
       }
       [HttpGet("/User/Login")]
       public ActionResult LoginGET()
@@ -35,6 +40,7 @@ namespace SimpleCart.Controllers
       {
           string username = Request.Form["username"];
           string password = Request.Form["password"];
+
           return View("Login");
       }
       [HttpGet("/Item")]
@@ -43,13 +49,7 @@ namespace SimpleCart.Controllers
 
           return View("AllItems", Item.GetAll("id"));
       }
-      // [HttpPost("/User/Login")]
-      // public ActionResult AllItemsPOST()
-      // {
-      //     string username = Request.Form["username"];
-      //     string password = Request.Form["password"];
-      //     return View("Login");
-      // }
+
       [HttpGet("/User/Cart")]
       public ActionResult UserCartGET()
       {
