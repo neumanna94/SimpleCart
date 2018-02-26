@@ -1,7 +1,7 @@
 @{
   Layout = "_Layout";
 }
-<body>
+
   <div class = "container">
     <div class = "jumbotron">
       <h1>Simple Cart Site</h1>
@@ -11,18 +11,19 @@
       <h1>Register an Account:</h1>
         <form action='/User/Login' method='post'>
           <div class='form-group'>
-            <label for='username'>Username</label>
-            <input id='username' name='username' class='form-control' type='text'>
+            <label for='usernameLogin'>Username</label>
+            <input id='usernameLogin' name='usernameLogin' class='form-control' type='text'>
           </div>
           <div class='form-group'>
-            <label for='password'>Password</label>
-            <input id='password' name='password' class='form-control' type='text'>
+            <label for='passwordLogin'>Password</label>
+            <input id='passwordLogin' name='passwordLogin' class='form-control' type='text'>
           </div>
           <button type="submit" class="btn">Login</button>
+          <a href="/User/Form"><button type="button" name="button">Register</button></a>
         </form>
     </div>
   </div>
-</body>
+
 
 <script src="text/javascript">
 $(document).ready(function(){
