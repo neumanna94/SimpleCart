@@ -45,4 +45,4 @@ _{Methods: Save(), GetAll(), Find(int id), DeleteAll(), DeleteRow(int id) }_
 
 *{MIT}*
 
-Copyright (c) 2018 **_{Alexander Neumann @ Epicodus}_**
+Copyright (c) 2018 **_{Alexander Neumann, Justin Lardani, Ernest Bruno @ Epicodus}_**
