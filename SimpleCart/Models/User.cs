@@ -15,7 +15,7 @@ namespace SimpleCart.Models
     private string _email;
     Cart _myCart = new Cart();
 
-    public User(name, login, password, address, email)
+    public User(string name,string login,string password,string address,string email)
     {
       _name = name;
       _login = login;
@@ -61,7 +61,7 @@ namespace SimpleCart.Models
 
     public void Save()
     {
-      MySqlConnection conn = DB.connection();
+      MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"INSERT INTO users (name, login, password, address, email) VALUES (@userName, @userLogin, @userPassword, @userAddress, @userEmail);";
@@ -75,22 +75,22 @@ namespace SimpleCart.Models
       cmd.Parameters.Add(login);
       cmd.Parameters.Add(password);
       cmd.Parameters.Add(address);
-      cmd.Paramters.Add(email);
+      cmd.Parameters.Add(email);
 
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
       _myCart = new Cart(_id);
 
-      conn.Close()
+      conn.Close();
       if (!(conn == null))
       {
-        conn.Dispose()
+        conn.Dispose();
       }
     }
 
     public User Find(int userId)
     {
-      MySqlConnection conn = DB.connection();
+      MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT * FROM users WHERE id=@userId;";

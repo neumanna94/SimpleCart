@@ -40,7 +40,8 @@ namespace SimpleCart.Controllers
       [HttpGet("/Item")]
       public ActionResult AllItemsGET()
       {
-          return View("AllItems");
+
+          return View("AllItems", Item.GetAll("id"));
       }
       // [HttpPost("/User/Login")]
       // public ActionResult AllItemsPOST()

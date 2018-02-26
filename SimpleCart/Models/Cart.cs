@@ -9,6 +9,10 @@ namespace SimpleCart.Models
   {
     private int _userId;
 
+    public Cart()
+    {
+      _userId = 0;
+    }
     public Cart(int userId)
     {
       _userId = userId;
@@ -22,14 +26,14 @@ namespace SimpleCart.Models
       cmd.CommandText = @"INSERT INTO cart_items (user_id, cart_id) VALUES (@userId, @itemId);";
 
       MySqlParameter userId = new MySqlParameter("@userId", _userId);
-      MySqlParamter itemId = new MySqlParameter("@itemId", itemId);
+      MySqlParameter tempItemId = new MySqlParameter("@itemId", itemId);
       cmd.Parameters.Add(userId);
-      cmd.Parameters.Add(itemId);
+      cmd.Parameters.Add(tempItemId);
 
       cmd.ExecuteNonQuery();
 
       conn.Close();
-      if (!(conn == null));
+      if (conn != null)
       {
         conn.Dispose();
       }
@@ -45,7 +49,7 @@ namespace SimpleCart.Models
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT items.* FROM users JOIN cart_items ON (users.id = cart_items.user_id) JOIN items ON (items.id = cart_items.item_id) WHERE users.id = @userId;";
 
-      MySqlParameter userId = newMySqlParameter ("@userId", _userId);
+      MySqlParameter userId = new MySqlParameter ("@userId", _userId);
       cmd.Parameters.Add(userId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -82,7 +86,7 @@ namespace SimpleCart.Models
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@itemId";
-      searchId.Value = idDelete;
+      searchId.Value = itemId;
       cmd.Parameters.Add(searchId);
 
       MySqlParameter userId = new MySqlParameter("@userId", _userId);
@@ -105,7 +109,7 @@ namespace SimpleCart.Models
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT items.cost FROM users JOIN cart_items ON (users.id = cart_items.user_id) JOIN items ON (items.id = cart_items.item_id) WHERE users.id = @userId;";
 
-      MySqlParameter userId = newMySqlParameter ("@userId", _userId);
+      MySqlParameter userId = new MySqlParameter ("@userId", _userId);
       cmd.Parameters.Add(userId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;

@@ -8,10 +8,11 @@
     </div>
     <div class="container">
     @foreach (var item in Model)
+    {
         <div class="row">
             <div class="col-md-7">
                 <a href="/Item/Detail/@item.GetId()">@item.GetName()</a>
-                <img src="@Model.GetImage()" alt="Picture">
+                <img src="@item.GetImgUrl()" alt="Picture">
             </div>
             <div class="col-md-5">
                 <div class="row">
@@ -29,6 +30,7 @@
                 </div>
             </div>
         </div>
+      }
     </div>
 </div>
 

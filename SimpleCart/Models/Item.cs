@@ -58,7 +58,7 @@ namespace SimpleCart.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO inventory_amazon (name, cost, description, imgUrl, stock ) VALUES (@itemName, @itemCost, @itemDescription, @itemImgUrl, @itemStock;";
+            cmd.CommandText = @"INSERT INTO items (name, cost, description, imgUrl, stock ) VALUES (@itemName, @itemCost, @itemDescription, @itemImgUrl, @itemStock;";
 
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@ItemName";
@@ -90,7 +90,7 @@ namespace SimpleCart.Models
             }
         }
 
-        public static List<Item> GetAll(orderBy)
+        public static List<Item> GetAll(string orderBy)
         {
             //Opening Database Connection.
             List<Item> allItems = new List<Item> {};
@@ -98,7 +98,7 @@ namespace SimpleCart.Models
             conn.Open();
             //Casting and Executing Commands.
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon ORDER BY "+orderBy+";";
+            cmd.CommandText = @"SELECT * FROM items ORDER BY "+orderBy+";";
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             //Contains built in method .Read()
@@ -129,7 +129,7 @@ namespace SimpleCart.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM inventory_amazon WHERE id = (@searchId);";
+            cmd.CommandText = @"SELECT * FROM items WHERE id = (@searchId);";
 
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
@@ -164,27 +164,12 @@ namespace SimpleCart.Models
             }
             return newItem;
         }
-
-        // public static void DeleteAll()
-        // {
-        //     MySqlConnection conn = DB.Connection();
-        //     conn.Open();
-        //     var cmd = conn.CreateCommand() as MySqlCommand;
-        //     cmd.CommandText = @"DELETE FROM items;";
-        //     cmd.ExecuteNonQuery();
-        //     conn.Close();
-        //     if (conn != null)
-        //     {
-        //         conn.Dispose();
-        //     }
-        // }
-
         public static void Delete(int idDelete)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM inventory_amazon WHERE id = @searchId;";
+            cmd.CommandText = @"DELETE FROM items WHERE id = @searchId;";
 
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
@@ -198,17 +183,6 @@ namespace SimpleCart.Models
                 conn.Dispose();
             }
         }
-        // public static string DisplayList()
-        // {
-        //     List<Item> allItems = new List<Item>{};
-        //     string outputString = "";
-        //     allItems = GetAll();
-        //     for(int i = 0; i < allItems.Count; i ++)
-        //     {
-        //         outputString += "(" + allItems[i].GetId() + ", " + allItems[i].GetName() + ", " + allItems[i].GetCost() + ", " + allItems[i].GetPostDate() +  ") ";
-        //     }
-        //     return outputString;
-        // }
     }
 
 }
