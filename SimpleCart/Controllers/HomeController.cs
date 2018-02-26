@@ -23,11 +23,14 @@ namespace SimpleCart.Controllers
       [HttpPost("/User/Form/Register")]
       public ActionResult RegisterPOST()
       {
-          string name = Request.Form["name"];
-          string username = Request.Form["username"];
-          string password = Request.Form["password"];
-          string address = Request.Form["address"];
-          string email = Request.Form["email"];
+          string name = Request.Form["nameForm"];
+          string username = Request.Form["usernameForm"];
+          string password = Request.Form["passwordForm"];
+          string address = Request.Form["addressForm"];
+          string email = Request.Form["emailForm"];
+          User myUser = new User(name, username, password, address, email);
+          Console.WriteLine(myUser.Save());
+
           return RedirectToAction("AllItemsGET");
       }
       [HttpGet("/User/Login")]

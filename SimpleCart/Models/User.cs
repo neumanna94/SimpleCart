@@ -64,8 +64,9 @@ namespace SimpleCart.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT login FROM users WHERE id=@userLogin;";
+      cmd.CommandText = @"SELECT login FROM users WHERE login=@userLogin;";
       MySqlParameter userLogin = new MySqlParameter("@userLogin", _login);
+      cmd.Parameters.Add(userLogin);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 
@@ -74,6 +75,7 @@ namespace SimpleCart.Models
       while(rdr.Read())
       {
         tempLogin = rdr.GetString(0);
+        Console.WriteLine(tempLogin);
       }
 
       conn.Close();
@@ -115,7 +117,7 @@ namespace SimpleCart.Models
     }
     public void Login(string login, string password)
     {
-        
+
     }
 
     public User Find(int userId)
