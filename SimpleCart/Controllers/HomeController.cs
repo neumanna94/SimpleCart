@@ -19,7 +19,6 @@ namespace SimpleCart.Controllers
         public ActionResult Register()
         {
           return View("Register");
-        }
 
     }
 }
