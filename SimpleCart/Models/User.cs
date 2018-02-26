@@ -87,9 +87,55 @@ namespace SimpleCart.Models
         conn.Dispose();
       }
     }
-    public void Login(string login, string password)
+    public User Login(User inputUser)
     {
-        
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM users WHERE name=@userName AND password=@userPassword;";
+
+      MySqlParameter userName = new MySqlParameter();
+      userName.ParameterName = "@userName";
+      userName.Value = inputUser.GetLogin();
+      cmd.Parameters.Add(userName);
+
+      MySqlParameter userPassword = new MySqlParameter();
+      userPassword.ParameterName = "@userPassword";
+      userPassword.Value = inputUser.GetPassword();
+      cmd.Parameters.Add(userPassword);
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+      int id = rdr.GetInt32(0);
+      string name = rdr.GetString(1);
+      string login = rdr.GetString(2);
+      string password = rdr.GetString(3);
+      string address = rdr.GetString(4);
+      string email = rdr.GetString(5);
+
+      while (rdr.Read())
+      {
+        id = rdr.GetInt32(0);
+        name = rdr.GetString(1);
+        login = rdr.GetString(2);
+        password = rdr.GetString(3);
+        address = rdr.GetString(4);
+        email = rdr.GetString(5);
+      }
+
+      User myUser = new User(name, login, password, address, email);
+      myUser.SetId(id);
+      conn.Close();
+      if (!(conn == null))
+      {
+        conn.Dispose();
+      }
+      if(myUser.GetLogin() == inputUser.GetLogin() && myUser.GetPassword() == inputUser.GetPassword())
+      {
+          return myUser;
+      } else {
+          return null;
+      }
     }
 
     public User Find(int userId)

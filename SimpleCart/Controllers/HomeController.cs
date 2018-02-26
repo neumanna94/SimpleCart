@@ -22,11 +22,6 @@ namespace SimpleCart.Controllers
           string password = Request.Form["password"];
           string address = Request.Form["address"];
           string email = Request.Form["email"];
-          User newUser = new User(name,username,password,address,email);
-          if(User.PreventDuplicate(newUser))
-          {
-              newUser.Save();
-          }
           return View("Register");
       }
       [HttpGet("/User/Login")]
