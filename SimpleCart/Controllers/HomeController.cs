@@ -9,7 +9,13 @@ namespace SimpleCart.Controllers
 {
     public class HomeController : Controller
     {
-      [HttpGet("/User/Form/Register")]
+        [HttpGet("/")]
+        public ActionResult Index()
+        {
+            return View("Login");
+        }
+
+      [HttpGet("/User/Form")]
       public ActionResult RegisterGET()
       {
           return View("Register");
@@ -22,12 +28,7 @@ namespace SimpleCart.Controllers
           string password = Request.Form["password"];
           string address = Request.Form["address"];
           string email = Request.Form["email"];
-          User newUser = new User(name,username,password,address,email);
-          if(User.PreventDuplicate(newUser))
-          {
-              newUser.Save();
-          }
-          return View("Register");
+          return RedirectToAction("AllItemsGET");
       }
       [HttpGet("/User/Login")]
       public ActionResult LoginGET()
