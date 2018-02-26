@@ -87,6 +87,10 @@ namespace SimpleCart.Models
         conn.Dispose();
       }
     }
+    public void Login(string login, string password)
+    {
+        
+    }
 
     public User Find(int userId)
     {
@@ -94,6 +98,11 @@ namespace SimpleCart.Models
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT * FROM users WHERE id=@userId;";
+
+      MySqlParameter searchId = new MySqlParameter();
+      searchId.ParameterName = "@searchId";
+      searchId.Value = _id;
+      cmd.Parameters.Add(searchId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 

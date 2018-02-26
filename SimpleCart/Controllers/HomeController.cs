@@ -21,8 +21,12 @@ namespace SimpleCart.Controllers
           string username = Request.Form["username"];
           string password = Request.Form["password"];
           string address = Request.Form["address"];
-          string number = Request.Form["email"];
-
+          string email = Request.Form["email"];
+          User newUser = new User(name,username,password,address,email);
+          if(User.PreventDuplicate(newUser))
+          {
+              newUser.Save();
+          }
           return View("Register");
       }
       [HttpGet("/User/Login")]
@@ -35,6 +39,7 @@ namespace SimpleCart.Controllers
       {
           string username = Request.Form["username"];
           string password = Request.Form["password"];
+
           return View("Login");
       }
       [HttpGet("/Item")]
@@ -43,13 +48,7 @@ namespace SimpleCart.Controllers
 
           return View("AllItems", Item.GetAll("id"));
       }
-      // [HttpPost("/User/Login")]
-      // public ActionResult AllItemsPOST()
-      // {
-      //     string username = Request.Form["username"];
-      //     string password = Request.Form["password"];
-      //     return View("Login");
-      // }
+
       [HttpGet("/User/Cart")]
       public ActionResult UserCartGET()
       {
