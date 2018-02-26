@@ -9,6 +9,13 @@ namespace SimpleCart.Controllers
 {
     public class ItemController : Controller
     {
+        [HttpGet("/Item")]
+        public ActionResult AllItemsGET()
+        {
+
+            return View("AllItems", Item.GetAll("id"));
+        }
+
         [HttpGet("/Item/Detail/{id}")]
         public ActionResult Detail(int id)
         {
