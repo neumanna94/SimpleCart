@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Inventory.Models;
-namespace Inventory.Tests
+using SimpleCart.Models;
+namespace SimpleCart.Tests
 {
     [TestClass]
-    public class InventoryTest
+    public class SimpleCartTest
     {
         [TestMethod]
-        public void InventoryTester()
+        public void SimpleCartTester()
         {
         }
       }

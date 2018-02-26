@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Inventory
+namespace SimpleCart
 {
     public class Program
     {

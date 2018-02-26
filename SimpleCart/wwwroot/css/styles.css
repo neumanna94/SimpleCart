@@ -1,0 +1,9 @@
+div#footer {
+    position:fixed;
+    bottom: 0px;
+    left:0px;
+    width:100%;
+    color:#272727;
+    background:white;
+    text-align: center;
+}

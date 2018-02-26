@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using Inventory;
+using SimpleCart;
 using System;
 
-namespace Inventory.Models
+namespace SimpleCart.Models
 {
     public class Item
     {
