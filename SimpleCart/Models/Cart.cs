@@ -120,7 +120,7 @@ namespace SimpleCart.Models
       {
         conn.Dispose();
       }
-      return totalCost; 
+      return totalCost;
     }
   }
 }
