@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 26, 2018 at 11:49 PM
+-- Generation Time: Feb 27, 2018 at 11:51 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `simple_cart`
 --
-CREATE DATABASE IF NOT EXISTS `simple_cart` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `simple_cart`;
 
 -- --------------------------------------------------------
 
@@ -33,6 +31,16 @@ CREATE TABLE `cart_items` (
   `item_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`id`, `item_id`, `user_id`) VALUES
+(1, 1, 0),
+(2, 1, 0),
+(3, 1, 7),
+(4, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -104,6 +112,53 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `session_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `session_id`) VALUES
+(1, 7, 8662512),
+(2, 7, 2566708),
+(3, 7, 2353310),
+(4, 7, 9652176),
+(5, 7, 7710214),
+(6, 7, 9701293),
+(7, 7, 3731627),
+(8, 7, 8525560),
+(9, 7, 9837677),
+(10, 7, 6675973),
+(11, 7, 5063154),
+(12, 7, 4567346),
+(13, 7, 825017),
+(14, 7, 9758851),
+(15, 7, 1574393),
+(16, 7, 2936200),
+(17, 7, 2139882),
+(18, 7, 6537167),
+(19, 7, 5088484),
+(20, 7, 8448477),
+(21, 7, 7756578),
+(22, 7, 6137959),
+(23, 7, 8211286),
+(24, 7, 4755726),
+(25, 7, 3838671),
+(26, 7, 1027066),
+(27, 7, 3062587),
+(28, 7, 2542551),
+(29, 7, 9311023);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -113,8 +168,21 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `address` int(11) NOT NULL
+  `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `password`, `name`, `email`, `address`) VALUES
+(1, 'Alex', 'Alex', 'Alex', 'Alex', '0'),
+(2, 'Alex', 'Alex', 'John', 'Lol', '0'),
+(3, 'Alex', 'Alex', 'Alex', 'Alex', '0'),
+(4, 'Justin', 'Justin', 'Justin', 'Justin', '0'),
+(5, 'Ernest', 'Ernest', 'Ernest', 'Ernest@Ernest.com', '0'),
+(6, 'f', 'f', 'f', 'f', '0'),
+(7, 'Ernie', 'Ernie', 'Ernie', 'Ernie', '0');
 
 --
 -- Indexes for dumped tables
@@ -156,6 +224,12 @@ ALTER TABLE `orders`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -169,7 +243,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -191,10 +265,15 @@ ALTER TABLE `items`
 ALTER TABLE `orders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `sessions`
+--
+ALTER TABLE `sessions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
