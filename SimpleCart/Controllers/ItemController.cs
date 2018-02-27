@@ -10,10 +10,17 @@ namespace SimpleCart.Controllers
     public class ItemController : Controller
     {
         [HttpGet("/Item")]
-        public ActionResult AllItemsGET()
+        public ActionResult Display()
         {
-
             return View("AllItems", Item.GetAll("id"));
+        }
+
+        [HttpPost("/Item")]
+        public ActionResult DisplaySort()
+        {
+            string inputOrderBy = Request.Form["orderBy"];
+
+            return View("AllItems", Item.GetAll(inputOrderBy));
         }
 
         [HttpGet("/Item/Detail/{id}")]

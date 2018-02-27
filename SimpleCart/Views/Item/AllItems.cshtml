@@ -3,17 +3,22 @@
 }
 
 <div class = "container">
-    <div class = "jumbotron">
-      <h1>Simple Cart Site</h1>
-    </div>
+  <h6><strong>Order By</strong></h6>
+  <form action='/Item' method='post'>
+    <select class="form-control" name="orderBy">
+      <option value="name">Alphabetically</option>
+      <option value="cost">Cost</option>
+      <option value="id">Id</option>
+    </select>
+    <button type="submit" class="btn">Sort</button>
+  </form>
     <div class="container">
     @foreach (var item in Model)
     {
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-7" id="firstItemContainer">
                 <h3><a href="/Item/Detail/@item.GetId()">@item.GetName()</a> </h3>
-                <hr>
-                <img src="@item.GetImgUrl()" alt="Picture" height="400" width="400">
+                <img src="@item.GetImgUrl()" class="center-block" alt="Picture" height="300" width="300">
             </div>
             <div class="col-md-5">
                 <div class="row">
@@ -21,16 +26,18 @@
                         <h2> $ @item.GetCost() </h2>
                     </div>
                     <div class="col-md-6">
-                        <a href="/User/Cart/@item.GetId()"><button type="button" class="btn">Add to Cart</button></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <h3> @item.GetDescription()</h3>
+                        <br>
+                        <a href="/User/Cart/@item.GetId()" class="addToCart"><button type="button" class="btn">Add to Cart</button></a>
                     </div>
                 </div>
             </div>
         </div>
+        <hr>
       }
     </div>
 </div>

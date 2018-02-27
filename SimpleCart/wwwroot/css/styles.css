@@ -1,9 +1,51 @@
+body {
+  background-color: #f7f7f7;
+}
+
 div#footer {
     position:fixed;
     bottom: 0px;
     left:0px;
     width:100%;
-    color:#272727;
-    background:white;
+    color: white;
+    font-size: 20px;
     text-align: center;
+    background-color: #262F3E;
+    opacity: 0.8;
+    font-weight: bold;
+    box-shadow: 0 0 10px black;
+    padding-top: 5px;
+    height: 40px;
+
+}
+
+button {
+  border: 1px solid black !important;
+  background-color: #ffb444;
+  text-align: left;
+  margin-top: 20px;
+}
+
+hr {
+  opacity: 0.2;
+  border: 1px solid black;
+}
+
+.jumbotron {
+  height: 100px;
+  padding-top: 10px;
+  background-color: #262F3E;
+}
+
+#firstItemContainer img {
+  float: left;
+  margin-top: 30px;
+}
+
+#jumbotron h1 {
+  font-size: 50px;
+  text-align: center;
+  color: white;
+  text-shadow: 0 3px #ffb444;
+  font-weight: bold;
 }

@@ -14,11 +14,5 @@ namespace SimpleCart.Controllers
         {
             return View("Login");
         }
-
-        [HttpGet("/User/Form")]
-        public ActionResult Register()
-        {
-          return View("Register");
-
     }
 }

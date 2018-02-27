@@ -90,7 +90,7 @@ namespace SimpleCart.Models
             }
         }
 
-        public static List<Item> GetAll(string orderBy)
+        public static List<Item> GetAll(string orderByInput)
         {
             //Opening Database Connection.
             List<Item> allItems = new List<Item> {};
@@ -98,7 +98,7 @@ namespace SimpleCart.Models
             conn.Open();
             //Casting and Executing Commands.
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM items ORDER BY "+orderBy+";";
+            cmd.CommandText = @"SELECT * FROM items ORDER BY "+orderByInput+";";
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             //Contains built in method .Read()

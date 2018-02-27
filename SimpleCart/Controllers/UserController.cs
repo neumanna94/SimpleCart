@@ -10,8 +10,14 @@ namespace SimpleCart.Controllers
     public class UserController : Controller
     {
 
-        [HttpPost("/User/Form/Register")]
-        public ActionResult RegisterPOST()
+        [HttpGet("/User/Form")]
+        public ActionResult Form()
+        {
+          return View();
+        }
+
+        [HttpPost("/User/Create")]
+        public ActionResult Create()
         {
             string name = Request.Form["nameForm"];
             string username = Request.Form["usernameForm"];
@@ -21,7 +27,7 @@ namespace SimpleCart.Controllers
             User newUser = new User(name, username, password, address, email);
             newUser.Save();
 
-            return RedirectToAction("AllItemsGET");
+            return RedirectToAction("Display", "Item");
         }
         [HttpGet("/User/Login")]
         public ActionResult LoginGET()
