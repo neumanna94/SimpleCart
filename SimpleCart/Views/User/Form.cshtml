@@ -2,10 +2,10 @@
   Layout = "_Layout";
 }
 
-  <div class = "container">
+<div class = "container">
   <div class = "row">
-    <div class="col-md-12">
-      <h1>Register an Account:</h1>
+    <div class="col-md-12" id="resultCol">
+      <h1>Create Account:</h1>
         <form action='/User/Create' method='post'>
           <div class='form-group'>
             <label for='name'>Name</label>
@@ -27,11 +27,13 @@
             <label for='emailForm'>Email</label>
             <input id='emailForm' name='emailForm' class='form-control' type='text'>
           </div>
-          <a href="/Item"><button type="submit" class="btn">Register</button></a>
-          <a href="/"><button type="button" class="btn">Back to Login Page</button></a>
+          <button type="submit" class="btn"><a href="/Item">Create your Account</a></button>
+          <hr></hr>
+          <p>Already have an account? <a href="/User/Login"> Sign in</a></p>
         </form>
     </div>
   </div>
+</div>
 
 
 <script src="text/javascript">

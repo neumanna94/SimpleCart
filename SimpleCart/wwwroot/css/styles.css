@@ -70,3 +70,60 @@ hr {
   text-shadow: 0 3px #ffb444;
   font-weight: bold;
 }
+
+#resultCol {
+  width: 40%;
+  border: 1px groove black;
+  margin-left: 30%;
+}
+#resultCol p {
+  text-align: center;
+}
+
+#resultCol a:hover {
+  color: orange;
+}
+#resultCol button {
+  margin-left: 30%;
+  margin-top: -.5%;
+}
+#resultCol button a {
+  color: black;
+  text-decoration: none;
+}
+#resultCol button a:hover{
+  color: black;
+}
+
+#loginCol {
+  width: 40%;
+  border: 1px groove black;
+  margin-left: 30%;
+}
+#loginCol p {
+  text-align: center;
+}
+#loginCol a:hover {
+  color: #ffb444;
+}
+#loginCol button {
+  width: 100%;
+  margin-bottom: 2%;
+  margin-top: -2%;
+}
+#loginCol button a {
+  color: black;
+  text-decoration: none;
+}
+#loginCol button a:hover{
+  color: black;
+}
+.col-md-1 a {
+  font-size: 18px;
+  text-decoration: none;
+}
+.col-md-1 a:hover {
+  font-size: 18px;
+  text-decoration: none;
+  color:#ffb444
+}
