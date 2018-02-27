@@ -33,10 +33,18 @@ namespace SimpleCart.Controllers
             return View("AllItems", Item.GetAll(inputOrderBy));
         }
 
-        [HttpGet("/Item/Detail/{id}")]
-        public ActionResult Detail(int id)
+        [HttpGet("/Item/Detail/{itemId}/{sessionId}")]
+        public ActionResult Detail(int itemId, int sessionId)
         {
-            Item myItem = Item.Find(id);
+            Item myItem = Item.Find(itemId);
+            ViewBag.sessionId = sessionId;
+
+            Cart myCart = new Cart(sessionId);
+            int myUserId = myCart.GetUserId();
+            AppUser myUser = AppUser.Find(myUserId);
+            Console.WriteLine(myUser.GetName());
+            ViewBag.myUserName = myUser.GetName();
+
             return View("ItemDetail", myItem);
         }
     }

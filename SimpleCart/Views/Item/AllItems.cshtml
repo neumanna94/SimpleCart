@@ -17,7 +17,7 @@
     {
         <div class="row">
             <div class="col-md-7" id="firstItemContainer">
-                <h3><a href="/Item/Detail/@item.GetId()">@item.GetName()</a> </h3>
+                <h3><a href="/Item/Detail/@item.GetId()/@ViewBag.sessionId">@item.GetName()</a> </h3>
                 <img src="@item.GetImgUrl()" class="center-block" alt="Picture" height="300" width="300">
             </div>
             <div class="col-md-5">

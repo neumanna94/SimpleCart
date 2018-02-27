@@ -13,7 +13,7 @@
               <a href="/Item/@item.GetId()/Detail"> <p>@item.GetName()</p></a>
             </div>
             <div class="col-md-5">
-              <a href="/Item/@item.GetId()/Remove"> <button type="button" class="btn"> Remove </button></a>
+              <a href="/Cart/DeleteItem/@item.GetId()/@ViewBag.sessionId"> <button type="button" class="btn"> Remove </button></a>
             </div>
           </div>
         }

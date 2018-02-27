@@ -51,9 +51,10 @@ namespace SimpleCart.Controllers
             return RedirectToAction("Display", "Item", new {id=sessionId});
         }
 
-        [HttpGet("/User/Logout")]
-        public ActionResult Logout()
+        [HttpGet("/User/Logout/{sessionId}")]
+        public ActionResult Logout(int sessionId)
         {
+          AppUser.Logout(sessionId);
           ViewBag.sessionId = -1;
           return RedirectToAction("Index", "Home");
         }

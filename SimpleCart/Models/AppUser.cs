@@ -216,6 +216,21 @@ namespace SimpleCart.Models
       // }
     }
 
+    public static void Logout(int sessionId)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM sessions WHERE session_id=@sessionId;";
+
+      MySqlParameter mySessionId = new MySqlParameter("@sessionId", sessionId);
+      cmd.Parameters.Add(mySessionId);
+
+      cmd.ExecuteNonQuery();
+
+      conn.Dispose();
+    }
+
     public static AppUser Find(int userId)
     {
       MySqlConnection conn = DB.Connection();

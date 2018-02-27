@@ -60,7 +60,7 @@ namespace SimpleCart.Models
       }
 
       conn.Dispose();
-      Console.WriteLine("Current UserId is " + myUserId); 
+      Console.WriteLine("Current UserId is " + myUserId);
       return myUserId;
     }
 
@@ -107,7 +107,7 @@ namespace SimpleCart.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM cart_items WHERE JOIN  WHERE (item_id = @itemId) AND (user_id = @userId);";
+      cmd.CommandText = @"DELETE FROM cart_items WHERE (item_id = @itemId) AND (user_id = @userId);";
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@itemId";
