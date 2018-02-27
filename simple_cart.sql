@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 27, 2018 at 11:51 PM
+-- Generation Time: Feb 27, 2018 at 11:54 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `simple_cart`
 --
+CREATE DATABASE IF NOT EXISTS `simple_cart` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `simple_cart`;
 
 -- --------------------------------------------------------
 
