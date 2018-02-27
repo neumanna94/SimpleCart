@@ -60,7 +60,7 @@ namespace SimpleCart.Models
       }
 
       conn.Dispose();
-
+      Console.WriteLine("Current UserId is " + myUserId); 
       return myUserId;
     }
 

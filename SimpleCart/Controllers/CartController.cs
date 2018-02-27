@@ -14,16 +14,20 @@ namespace SimpleCart.Controllers
     {
       Cart myCart = new Cart(id);
       List<Item> myItems = myCart.GetItems();
-      ViewBag.sessionId = Request.Query["id"];
+      ViewBag.sessionId = id;
+
+      AppUser myUser = AppUser.Find(myCart.GetUserId());
+      ViewBag.myUserName = myUser.GetName();
+      
       return View(myItems);
     }
 
-    [HttpGet("/Cart/Update/{itemId}/{id}")]
-    public ActionResult Update(int itemId, int userId)
+    [HttpGet("/Cart/Update/{itemId}/{sessionId}")]
+    public ActionResult Update(int itemId, int sessionId)
     {
-      Cart myCart = new Cart(userId);
+      Cart myCart = new Cart(sessionId);
       myCart.AddItem(itemId);
-      return RedirectToAction("Display", new {id = userId});
+      return RedirectToAction("Display", new {id = sessionId});
     }
   }
 }
