@@ -16,10 +16,10 @@
           @if (ViewBag.sessionId != -1)
           {
             <div class="col-md-1">
-              <a href="#">@ViewBag.myUserName</a>
+              <a href="#"><span class="glyphicon glyphicon-user"></span>@ViewBag.myUserName</a>
             </div>
             <div class="col-md-1">
-              <a href="/Cart/Display/@ViewBag.sessionId">Cart</a>
+              <a href="/Cart/Display/@ViewBag.sessionId"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
             </div>
             <div class="col-md-1">
               <a href="/User/Logout/@ViewBag.sessionId">Logout</a>

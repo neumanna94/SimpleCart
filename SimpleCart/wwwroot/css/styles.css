@@ -125,5 +125,13 @@ hr {
 .col-md-1 a:hover {
   font-size: 18px;
   text-decoration: none;
-  color: #ffb444; 
+  color: #ffb444;
+}
+
+.btn {
+  text-decoration: none;
+  color: black;
+}
+.btn a {
+  color:black;
 }

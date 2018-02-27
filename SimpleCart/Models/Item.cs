@@ -42,6 +42,10 @@ namespace SimpleCart.Models
         {
             return _cost;
         }
+        public int GetStock()
+        {
+            return _stock;
+        }
 
         public string GetDescription()
         {
