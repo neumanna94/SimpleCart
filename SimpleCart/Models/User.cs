@@ -216,7 +216,7 @@ namespace SimpleCart.Models
       // }
     }
 
-    public AppUser Find(int userId)
+    public static AppUser Find(int userId)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
@@ -224,8 +224,8 @@ namespace SimpleCart.Models
       cmd.CommandText = @"SELECT * FROM users WHERE id=@userId;";
 
       MySqlParameter searchId = new MySqlParameter();
-      searchId.ParameterName = "@searchId";
-      searchId.Value = _id;
+      searchId.ParameterName = "@userId";
+      searchId.Value = userId;
       cmd.Parameters.Add(searchId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -243,8 +243,8 @@ namespace SimpleCart.Models
         name = rdr.GetString(1);
         login = rdr.GetString(2);
         password = rdr.GetString(3);
-        address = rdr.GetString(4);
-        email = rdr.GetString(5);
+        address = rdr.GetString(5);
+        email = rdr.GetString(4);
       }
 
       AppUser myUser = new AppUser(name, login, password, address, email);

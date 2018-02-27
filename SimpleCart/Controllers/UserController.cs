@@ -33,7 +33,8 @@ namespace SimpleCart.Controllers
         [HttpGet("/User/Login")]
         public ActionResult Login()
         {
-          return View(); 
+          ViewBag.sessionId = -1;
+          return View();
         }
 
         [HttpPost("/User/Login")]
@@ -42,11 +43,19 @@ namespace SimpleCart.Controllers
             string login = Request.Form["usernameLogin"];
             string password = Request.Form["passwordLogin"];
             int sessionId = AppUser.Login(login, password);
+
             if (sessionId == -1)
             {
               return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Display", "Item", new {id=sessionId});
+        }
+
+        [HttpGet("/User/Logout")]
+        public ActionResult Logout()
+        {
+          ViewBag.sessionId = -1;
+          return RedirectToAction("Index", "Home");
         }
     }
 }
