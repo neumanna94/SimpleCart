@@ -12,6 +12,7 @@ namespace SimpleCart.Controllers
         [HttpGet("/")]
         public ActionResult Index()
         {
+            ViewBag.sessionId = -1;
             return View("Login");
         }
     }

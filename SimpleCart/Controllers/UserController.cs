@@ -24,32 +24,23 @@ namespace SimpleCart.Controllers
             string password = Request.Form["passwordForm"];
             string address = Request.Form["addressForm"];
             string email = Request.Form["emailForm"];
-            User newUser = new User(name, username, password, address, email);
+            AppUser newUser = new AppUser(name, username, password, address, email);
             newUser.Save();
 
             return RedirectToAction("Display", "Item");
         }
-        [HttpGet("/User/Login")]
-        public ActionResult LoginGET()
-        {
-            return View("Login");
-        }
 
         [HttpPost("/User/Login")]
-        public ActionResult LoginPOST()
+        public ActionResult LoginAction()
         {
-            string username = Request.Form["username"];
-            string password = Request.Form["password"];
-
-            return RedirectToAction("AllItemsGET", "Item");
+            string login = Request.Form["usernameLogin"];
+            string password = Request.Form["passwordLogin"];
+            int sessionId = AppUser.Login(login, password);
+            if (sessionId == -1)
+            {
+              return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Display", "Item", new {id=sessionId});
         }
-
-        [HttpGet("/User/Cart")]
-        public ActionResult UserCartGET()
-        {
-
-            return View("Cart");
-        }
-
     }
 }

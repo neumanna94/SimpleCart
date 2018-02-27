@@ -12,6 +12,7 @@ namespace SimpleCart.Controllers
         [HttpGet("/Item")]
         public ActionResult Display()
         {
+            ViewBag.sessionId = Request.Query["id"]; 
             return View("AllItems", Item.GetAll("id"));
         }
 
