@@ -18,7 +18,7 @@ namespace SimpleCart.Controllers
 
       AppUser myUser = AppUser.Find(myCart.GetUserId());
       ViewBag.myUserName = myUser.GetName();
-      
+
       return View(myItems);
     }
 
@@ -28,6 +28,14 @@ namespace SimpleCart.Controllers
       Cart myCart = new Cart(sessionId);
       myCart.AddItem(itemId);
       return RedirectToAction("Display", new {id = sessionId});
+    }
+
+    [HttpGet("/Cart/DeleteItem/{itemId}/{sessionId}")]
+    public ActionResult DeleteItem(int itemId, int sessionId)
+    {
+      Cart myCart = new Cart(sessionId);
+      myCart.DeleteItem(itemId);
+      return RedirectToAction("Display", new {id = sessionId}); 
     }
   }
 }

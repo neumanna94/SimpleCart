@@ -10,9 +10,10 @@ namespace SimpleCart.Controllers
     public class UserController : Controller
     {
 
-        [HttpGet("/User/Form")]
-        public ActionResult Form()
+        [HttpGet("/User/Form/{sessionId}")]
+        public ActionResult Form(int sessionId)
         {
+          ViewBag.sessionId = sessionId; 
           return View();
         }
 
@@ -25,9 +26,13 @@ namespace SimpleCart.Controllers
             string address = Request.Form["addressForm"];
             string email = Request.Form["emailForm"];
             AppUser newUser = new AppUser(name, username, password, address, email);
-            newUser.Save();
-
-            return RedirectToAction("Display", "Item");
+            if (newUser.Save())
+            {
+              string login = username;
+              int sessionId = AppUser.Login(login, password);
+              return RedirectToAction("Display", "Item", new {id=sessionId});
+            }
+            return RedirectToAction("Form", new {id=-1});
         }
 
         [HttpGet("/User/Login")]
@@ -51,9 +56,10 @@ namespace SimpleCart.Controllers
             return RedirectToAction("Display", "Item", new {id=sessionId});
         }
 
-        [HttpGet("/User/Logout")]
-        public ActionResult Logout()
+        [HttpGet("/User/Logout/{sessionId}")]
+        public ActionResult Logout(int sessionId)
         {
+          AppUser.Logout(sessionId);
           ViewBag.sessionId = -1;
           return RedirectToAction("Index", "Home");
         }

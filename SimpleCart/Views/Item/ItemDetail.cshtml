@@ -16,7 +16,7 @@
                     <h2> $ @Model.GetCost() </h2>
                 </div>
                 <div class="col-md-6">
-                    <a href="/User/Cart"></a><button type="button" class="btn">Add to Cart</button>
+                    <a href="/Cart/Update/@Model.GetId()/@ViewBag.sessionId"><button type="button" class="btn">Add to Cart</button></a>
                 </div>
             </div>
             <div class="row">
@@ -28,7 +28,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a href="/Item/">Continue Shopping</a>
+            <a href="/Item/@ViewBag.sessionId">Continue Shopping</a>
         </div>
     </div>
 
