@@ -4,19 +4,22 @@
 
   <div class = "container">
   <div class = "row">
-    <div class="col-md-12">
-      <h1>Login:</h1>
+    <div class="col-md-12" id = "loginCol">
+      <h1>Sign in</h1>
         <form action='/User/Login' method='post'>
           <div class='form-group'>
             <label for='usernameLogin'>Username</label>
             <input id='usernameLogin' name='usernameLogin' class='form-control' type='text'>
           </div>
           <div class='form-group'>
-            <label for='passwordLogin'>Password</label>
+            <label for='passwordLogin'>Password</label><a href ="/"> Forgot Password?</a>
             <input id='passwordLogin' name='passwordLogin' class='form-control' type='text'>
           </div>
-          <button type="submit" class="btn">Login</button>
-          <a href="/User/Form"><button type="button" class="btn">Register</button></a>
+          <button type="submit" class="btn">Sign in</button>
+          <hr></hr>
+          <h5>New User? Create an account.</h5>
+          <br>
+          <button type="button" class="btn"><a href="/User/Form">Create a new Account</a></button>
         </form>
     </div>
   </div>
