@@ -7,15 +7,16 @@ namespace SimpleCart.Models
 {
   public class Cart
   {
-    private int _userId;
+    private int _sessionId;
 
     public Cart()
     {
-      _userId = 0;
+      _sessionId= -1;
     }
-    public Cart(int userId)
+
+    public Cart(int sessionId)
     {
-      _userId = userId;
+      _sessionId = sessionId;
     }
 
     public void AddItem(int itemId)
@@ -23,9 +24,9 @@ namespace SimpleCart.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO cart_items (user_id, cart_id) VALUES (@userId, @itemId);";
+      cmd.CommandText = @"INSERT INTO cart_items (user_id, item_id) VALUES (@userId, @itemId);";
 
-      MySqlParameter userId = new MySqlParameter("@userId", _userId);
+      MySqlParameter userId = new MySqlParameter("@userId", this.GetUserId());
       MySqlParameter tempItemId = new MySqlParameter("@itemId", itemId);
       cmd.Parameters.Add(userId);
       cmd.Parameters.Add(tempItemId);
@@ -39,6 +40,30 @@ namespace SimpleCart.Models
       }
     }
 
+    public int GetUserId()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT user_id FROM sessions WHERE session_id=@sessionId;";
+
+      MySqlParameter sessionId = new MySqlParameter("@sessionId", _sessionId);
+      cmd.Parameters.Add(sessionId);
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+      int myUserId = 0;
+
+      while (rdr.Read())
+      {
+        myUserId = rdr.GetInt32(0);
+      }
+
+      conn.Dispose();
+
+      return myUserId;
+    }
+
     public List<Item> GetItems()
     {
       //Opening Database Connection.
@@ -47,10 +72,10 @@ namespace SimpleCart.Models
       conn.Open();
       //Casting and Executing Commands.
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT items.* FROM users JOIN cart_items ON (users.id = cart_items.user_id) JOIN items ON (items.id = cart_items.item_id) WHERE users.id = @userId;";
+      cmd.CommandText = @"SELECT items.* FROM sessions JOIN users ON (sessions.user_id = users.id) JOIN cart_items ON (users.id = cart_items.user_id) JOIN items ON (items.id = cart_items.item_id) WHERE sessions.session_id = @sessionId;";
 
-      MySqlParameter userId = new MySqlParameter ("@userId", _userId);
-      cmd.Parameters.Add(userId);
+      MySqlParameter sessionId = new MySqlParameter ("@sessionId", _sessionId);
+      cmd.Parameters.Add(sessionId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       //Contains built in method .Read()
@@ -89,7 +114,7 @@ namespace SimpleCart.Models
       searchId.Value = itemId;
       cmd.Parameters.Add(searchId);
 
-      MySqlParameter userId = new MySqlParameter("@userId", _userId);
+      MySqlParameter userId = new MySqlParameter("@userId", this.GetUserId());
       cmd.Parameters.Add(userId);
 
       cmd.ExecuteNonQuery();
@@ -109,7 +134,7 @@ namespace SimpleCart.Models
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT items.cost FROM users JOIN cart_items ON (users.id = cart_items.user_id) JOIN items ON (items.id = cart_items.item_id) WHERE users.id = @userId;";
 
-      MySqlParameter userId = new MySqlParameter ("@userId", _userId);
+      MySqlParameter userId = new MySqlParameter ("@userId", this.GetUserId());
       cmd.Parameters.Add(userId);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;

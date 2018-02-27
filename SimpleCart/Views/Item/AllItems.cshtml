@@ -32,7 +32,7 @@
                     <div class="col-md-12">
                         <h3> @item.GetDescription()</h3>
                         <br>
-                        <a href="/User/Cart/@item.GetId()" class="addToCart"><button type="button" class="btn">Add to Cart</button></a>
+                        <a href="/Cart/Update/@item.GetId()/@ViewBag.sessionId" class="addToCart"><button type="button" class="btn">Add to Cart</button></a>
                     </div>
                 </div>
             </div>
@@ -41,9 +41,3 @@
       }
     </div>
 </div>
-
-
-<script src="text/javascript">
-$(document).ready(function(){
-})
-</script>

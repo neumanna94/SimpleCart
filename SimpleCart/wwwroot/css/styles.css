@@ -19,6 +19,26 @@ div#footer {
 
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0.8;
+  background-color: #262F3E;
+  margin-bottom: 10px;
+  font-size: 20px;
+  z-index: 2;
+  box-shadow: 0 0 10px black;
+  font-weight: bold;
+  color: white;
+  padding: 5px;
+}
+
+header a {
+  color: white;
+}
+
 button {
   border: 1px solid black !important;
   background-color: #ffb444;
@@ -35,6 +55,7 @@ hr {
   height: 100px;
   padding-top: 10px;
   background-color: #262F3E;
+  margin-top: 60px;
 }
 
 #firstItemContainer img {
