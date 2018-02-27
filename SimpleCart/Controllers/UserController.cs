@@ -30,6 +30,12 @@ namespace SimpleCart.Controllers
             return RedirectToAction("Display", "Item");
         }
 
+        [HttpGet("/User/Login")]
+        public ActionResult Login()
+        {
+          return View(); 
+        }
+
         [HttpPost("/User/Login")]
         public ActionResult LoginAction()
         {
