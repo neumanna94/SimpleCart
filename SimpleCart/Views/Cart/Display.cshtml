@@ -5,7 +5,7 @@
   <div class = "container">
     <div class = "row">
       <div class="col-md-12">
-      <a href="/Order/Success"><button type="button" name="button" class ="btn">Proceed to Checkout</button></a>
+      <a href="/Item/@ViewBag.sessionId"><button type="button" name="button" class ="btn">Proceed to Checkout</button></a>
       <a href="/Item/@ViewBag.sessionId"> <button type="button" class="btn">Continue Shopping</button></a>
         <h1>Shopping Cart</h1>
         <hr></hr>
@@ -28,6 +28,7 @@
           </div>
           <hr></hr>
         }
+        <p>Total Cost: @
       </div>
     </div>
   </div>

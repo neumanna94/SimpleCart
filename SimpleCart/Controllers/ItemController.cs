@@ -14,6 +14,10 @@ namespace SimpleCart.Controllers
         {
             string inputOrderBy = "id";
             ViewBag.sessionId = id;
+            if(!string.IsNullOrEmpty(Request.Query["orderBy"]))
+            {
+                inputOrderBy = Request.Query["orderBy"];
+            }
             if (id != -1)
             {
                 Cart myCart = new Cart(id);
@@ -21,11 +25,7 @@ namespace SimpleCart.Controllers
                 AppUser myUser = AppUser.Find(myUserId);
                 Console.WriteLine(myUser.GetName());
                 ViewBag.myUserName = myUser.GetName();
-                return View("AllItems", Item.GetAll("id"));
-            }
-            if(!string.IsNullOrEmpty(Request.Query["orderBy"]))
-            {
-                inputOrderBy = Request.Query["orderBy"];
+                return View("AllItems", Item.GetAll(inputOrderBy));
             }
 
             return View("AllItems", Item.GetAll(inputOrderBy));
