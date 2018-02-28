@@ -70,6 +70,7 @@ namespace SimpleCart.Controllers
             ViewBag.sessionId = sessionId;
             Cart myCart = new Cart(sessionId);
             AppUser myUser = AppUser.Find(myCart.GetUserId());
+            ViewBag.myUserName = myUser.GetName();
 
             return View(myUser);
         }
