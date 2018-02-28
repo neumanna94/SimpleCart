@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 27, 2018 at 11:54 PM
+-- Generation Time: Feb 28, 2018 at 10:41 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -42,30 +42,26 @@ INSERT INTO `cart_items` (`id`, `item_id`, `user_id`) VALUES
 (1, 1, 0),
 (2, 1, 0),
 (3, 1, 7),
-(4, 2, 7);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `categories`
---
-
-CREATE TABLE `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `category_join`
---
-
-CREATE TABLE `category_join` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(4, 2, 7),
+(10, 1, 0),
+(11, 2, 0),
+(14, 2, 0),
+(16, 3, 7),
+(17, 1, 0),
+(19, 1, 0),
+(20, 2, 0),
+(24, 4, 8),
+(26, 11, 8),
+(28, 1, 9),
+(29, 4, 9),
+(30, 12, 8),
+(31, 12, 8),
+(32, 12, 8),
+(40, 12, 0),
+(48, 1, 3),
+(49, 1, 10),
+(50, 3, 10),
+(51, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -110,6 +106,27 @@ CREATE TABLE `orders` (
   `item_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `item_id`, `user_id`) VALUES
+(13, 4, 3),
+(15, 11, 3),
+(27, 2, 3),
+(33, 7, 3),
+(34, 1, 5),
+(35, 2, 5),
+(36, 7, 5),
+(37, 2, 3),
+(38, 2, 3),
+(39, 1, 3),
+(41, 12, 3),
+(42, 12, 3),
+(44, 1, 10),
+(46, 4, 10),
+(47, 4, 10);
 
 -- --------------------------------------------------------
 
@@ -156,7 +173,24 @@ INSERT INTO `sessions` (`id`, `user_id`, `session_id`) VALUES
 (26, 7, 1027066),
 (27, 7, 3062587),
 (28, 7, 2542551),
-(29, 7, 9311023);
+(29, 7, 9311023),
+(30, 3, 1071876),
+(31, 3, 2536527),
+(32, 3, 302927),
+(33, 3, 1617724),
+(34, 3, 9050515),
+(35, 7, 4799581),
+(36, 3, 8546186),
+(37, 3, 4843280),
+(38, 3, 6414434),
+(39, 8, 9264226),
+(43, 3, 4176086),
+(48, 3, 4051213),
+(49, 3, 3589034),
+(50, 5, 7117850),
+(51, 5, 8506519),
+(52, 3, 6392262),
+(53, 3, 5274448);
 
 -- --------------------------------------------------------
 
@@ -184,7 +218,10 @@ INSERT INTO `users` (`id`, `login`, `password`, `name`, `email`, `address`) VALU
 (4, 'Justin', 'Justin', 'Justin', 'Justin', '0'),
 (5, 'Ernest', 'Ernest', 'Ernest', 'Ernest@Ernest.com', '0'),
 (6, 'f', 'f', 'f', 'f', '0'),
-(7, 'Ernie', 'Ernie', 'Ernie', 'Ernie', '0');
+(7, 'Ernie', 'Ernie', 'Ernie', 'Ernie', '0'),
+(8, 'joshd', 'password', 'Josh', 'joshd@gmail.com', 'somewhere Abe'),
+(9, 'Tyler', 'ThisIsAPassword', 'Alex', 'Alex', 'somewhere Abe'),
+(10, 'Alexander', 'Alexander', 'Alexander', 'Alexander', 'Alexander');
 
 --
 -- Indexes for dumped tables
@@ -194,20 +231,6 @@ INSERT INTO `users` (`id`, `login`, `password`, `name`, `email`, `address`) VALU
 -- Indexes for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `category_join`
---
-ALTER TABLE `category_join`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -245,17 +268,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `category_join`
---
-ALTER TABLE `category_join`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `items`
 --
@@ -265,17 +278,17 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
