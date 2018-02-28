@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Simple Template Layout</title>
+    <title>SimpleCart</title>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <link rel='stylesheet' href="~/css/styles.css">
@@ -11,18 +11,21 @@
     <header>
       <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-2">
+            <a href="/Item/@ViewBag.sessionId"><span class="glyphicon glyphicon-search"></span>    Shop</a>
+          </div>
+          <div class="col-md-6">
           </div>
           @if (ViewBag.sessionId != -1)
           {
-            <div class="col-md-1">
-              <a href="/User/Display/@ViewBag.sessionId"><span class="glyphicon glyphicon-user"></span>@ViewBag.myUserName</a>
+            <div class="col-md-2">
+              <a href="/User/Display/@ViewBag.sessionId" style="float: right;"><span class="glyphicon glyphicon-user"></span> @ViewBag.myUserName</a>
             </div>
             <div class="col-md-1">
-              <a href="/Cart/Display/@ViewBag.sessionId"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
+              <a href="/Cart/Display/@ViewBag.sessionId"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
             </div>
             <div class="col-md-1">
-              <a href="/User/Logout/@ViewBag.sessionId">Logout</a>
+              <a href="/User/Logout/@ViewBag.sessionId"> Logout</a>
             </div>
           }
           else

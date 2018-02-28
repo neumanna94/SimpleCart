@@ -1,5 +1,6 @@
 body {
   background-color: #f7f7f7;
+  padding-bottom: 50px;
 }
 
 div#footer {
@@ -121,14 +122,18 @@ hr {
 #orderByForm {
   width: 10%;
 }
-.col-md-1 a {
+.col-md-1 a, .col-md-2 a {
   font-size: 18px;
   text-decoration: none;
 }
-.col-md-1 a:hover {
+.col-md-1 a:hover, .col-md-2 a:hover {
   font-size: 18px;
   text-decoration: none;
   color: #ffb444;
+}
+
+.col-md-2{
+    padding-top: 3px;
 }
 
 .btn {

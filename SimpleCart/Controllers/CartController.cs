@@ -41,18 +41,25 @@ namespace SimpleCart.Controllers
     public ActionResult Confirm(int sessionId)
     {
       Cart myCart = new Cart(sessionId);
+      AppUser myUser = AppUser.Find(myCart.GetUserId());
+      ViewBag.myUserName = myUser.GetName();
       ViewBag.sessionId = sessionId;
-      return View(myCart);
+      ViewBag.totalCost = myCart.GetTotalCost();
+      return View(myCart.GetItems());
     }
-    [HttpGet("/Cart/Checkout/{sessionId}")]
-    public ActionResult Checkout(int sessionId)
+    [HttpGet("/Cart/Checkout/{sessionId}/{totalCost}")]
+    public ActionResult Checkout(int sessionId,double totalCost)
     {
       Cart myCart = new Cart(sessionId);
+      List<Item> myItems = myCart.GetItems();
+      ViewBag.totalCost = totalCost;
       ViewBag.sessionId = sessionId;
       Console.WriteLine(myCart.Checkout());
 
+      AppUser myUser = AppUser.Find(myCart.GetUserId());
+      ViewBag.myUserName = myUser.GetName();
       //"Show them something different."
-      return View(myCart);
+      return View(myItems);
     }
 
   }

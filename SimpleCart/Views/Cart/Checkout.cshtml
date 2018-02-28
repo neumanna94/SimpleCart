@@ -1,0 +1,45 @@
+@{
+  Layout = "_Layout";
+}
+
+  <div class = "container">
+    <div class = "row">
+      <div class="col-md-12">
+        <h1>Your Order was successfully processed.</h1>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Your order total Cost: $@ViewBag.totalCost </h3>
+            </div>
+          </div>
+        </div>
+        <h3> Your ordered items. </h3>
+        <hr></hr>
+        @foreach (var item in Model)
+        {
+          <div class="row">
+          <div class="col-md-3">
+            <a href="/Item/Detail/@item.GetId()"><img src="@item.GetImgUrl()" class="center-block" alt="Picture" height="200" width="200"></a>
+          </div>
+            <div class="col-md-3">
+              <a href="/Item/Detail/@item.GetId()/@ViewBag.sessionId"> <p>@item.GetName()</p></a>
+              <a href="/Cart/DeleteItem/@item.GetId()/@ViewBag.sessionId"> <button type="button" class="btn"> Delete </button></a>
+            </div>
+            <div class="col-md-3">
+              <p>$@item.GetCost()</p>
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
+          <hr></hr>
+        }
+
+      </div>
+    </div>
+  </div>
+
+
+<script src="text/javascript">
+$(document).ready(function(){
+})
+</script>
