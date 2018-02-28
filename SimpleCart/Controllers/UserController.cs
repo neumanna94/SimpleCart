@@ -74,5 +74,28 @@ namespace SimpleCart.Controllers
 
             return View(myUser);
         }
+        [HttpPost("/User/Update/{sessiodId}")]
+        public ActionResult Update(int sessionId)
+        {
+            ViewBag.sessionId = sessionId;
+            Cart myCart = new Cart(sessionId);
+            AppUser myUser = AppUser.Find(myCart.GetUserId());
+            ViewBag.myUserName = myUser.GetName();
+
+            string name = Request.Form["nameInput"];
+            string login = Request.Form["username"];
+            string password = Request.Form["passInput"];
+            string password2 = Request.Form["passInput2"];
+            string address = Request.Form["addressInput"];
+            string email = Request.Form["emailInput"];
+
+            if(password != password2)
+            {
+                return RedirectToAction("Display", new {id = sessionId});
+            }
+            //Add logic for updating a row.
+            return RedirectToAction("Display", new {id = sessionId});
+        }
+
     }
 }

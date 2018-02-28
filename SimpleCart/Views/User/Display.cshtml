@@ -8,6 +8,7 @@
       <form id="updateForm" action="User/Update/@ViewBag.sessionId" method="post">
         <h1>Greetings, @Model.GetName() </h1>
         <h3>Username: @Model.GetLogin() </h3>
+        <input type="hidden" name="username" value="@Model.GetLogin()" id="username">
         <h3>Name: @Model.GetName() <button type="button" class="btn updateButton"><span class="glyphicon glyphicon-cog"></span></button> </h3>
         <div class="form-group initHidden" id="nameGroup">
           <label for="nameInput">Name:</label>
