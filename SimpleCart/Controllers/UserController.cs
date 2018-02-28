@@ -13,7 +13,7 @@ namespace SimpleCart.Controllers
         [HttpGet("/User/Form/{sessionId}")]
         public ActionResult Form(int sessionId)
         {
-          ViewBag.sessionId = sessionId; 
+          ViewBag.sessionId = sessionId;
           return View();
         }
 
@@ -63,5 +63,15 @@ namespace SimpleCart.Controllers
           ViewBag.sessionId = -1;
           return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet("/User/Display/{sessionId}")]
+        public ActionResult Display(int sessionId)
+        {
+          ViewBag.sessionId = sessionId;
+          Cart myCart = new Cart(sessionId);
+          AppUser myUser = AppUser.Find(myCart.GetUserId());
+
+          return View(myUser);
+        View
     }
 }

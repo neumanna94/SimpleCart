@@ -35,7 +35,24 @@ namespace SimpleCart.Controllers
     {
       Cart myCart = new Cart(sessionId);
       myCart.DeleteItem(itemId);
-      return RedirectToAction("Display", new {id = sessionId}); 
+      return RedirectToAction("Display", new {id = sessionId});
     }
+    [HttpGet("/Cart/Confirm/{sessionId}")]
+    public ActionResult Confirm(int sessionId)
+    {
+      Cart myCart = new Cart(sessionId);
+      ViewBag.sessionId = sessionId;
+      return View(myCart);
+    }
+    [HttpGet("/Cart/Checkout/{sessionId}")]
+    public ActionResult Checkout(int sessionId)
+    {
+      Cart myCart = new Cart(sessionId);
+      ViewBag.sessionId = sessionId;
+      myCart.Checkout();
+      //"Show them something different."
+      return View(myCart);
+    }
+
   }
 }

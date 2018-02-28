@@ -151,5 +151,10 @@ namespace SimpleCart.Models
       }
       return totalCost;
     }
+    public bool Checkout()
+    {
+      
+        return false;
+    }
   }
 }
