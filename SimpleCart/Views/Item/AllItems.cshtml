@@ -4,11 +4,10 @@
 
 <div class = "container">
   <h6><strong>Order By</strong></h6>
-  <form action='/Item/@ViewBag.sessionId' method='post'>
+  <form action='/Item/@ViewBag.sessionId' method='get' id="orderByForm">
     <select class="form-control" name="orderBy">
       <option value="name">Alphabetically</option>
       <option value="cost">Cost</option>
-      <option value="id">Id</option>
     </select>
     <button type="submit" class="btn">Sort</button>
   </form>

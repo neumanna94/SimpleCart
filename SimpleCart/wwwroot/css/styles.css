@@ -118,6 +118,9 @@ hr {
 #loginCol button a:hover{
   color: black;
 }
+#orderByForm {
+  width: 10%;
+}
 .col-md-1 a {
   font-size: 18px;
   text-decoration: none;
