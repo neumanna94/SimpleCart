@@ -49,7 +49,8 @@ namespace SimpleCart.Controllers
     {
       Cart myCart = new Cart(sessionId);
       ViewBag.sessionId = sessionId;
-      myCart.Checkout();
+      Console.WriteLine(myCart.Checkout());
+
       //"Show them something different."
       return View(myCart);
     }

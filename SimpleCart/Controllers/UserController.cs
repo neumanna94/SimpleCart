@@ -13,8 +13,8 @@ namespace SimpleCart.Controllers
         [HttpGet("/User/Form/{sessionId}")]
         public ActionResult Form(int sessionId)
         {
-          ViewBag.sessionId = sessionId;
-          return View();
+            ViewBag.sessionId = sessionId;
+            return View();
         }
 
         [HttpPost("/User/Create")]
@@ -28,9 +28,9 @@ namespace SimpleCart.Controllers
             AppUser newUser = new AppUser(name, username, password, address, email);
             if (newUser.Save())
             {
-              string login = username;
-              int sessionId = AppUser.Login(login, password);
-              return RedirectToAction("Display", "Item", new {id=sessionId});
+                string login = username;
+                int sessionId = AppUser.Login(login, password);
+                return RedirectToAction("Display", "Item", new {id=sessionId});
             }
             return RedirectToAction("Form", new {id=-1});
         }
@@ -38,8 +38,8 @@ namespace SimpleCart.Controllers
         [HttpGet("/User/Login")]
         public ActionResult Login()
         {
-          ViewBag.sessionId = -1;
-          return View();
+            ViewBag.sessionId = -1;
+            return View();
         }
 
         [HttpPost("/User/Login")]
@@ -59,19 +59,19 @@ namespace SimpleCart.Controllers
         [HttpGet("/User/Logout/{sessionId}")]
         public ActionResult Logout(int sessionId)
         {
-          AppUser.Logout(sessionId);
-          ViewBag.sessionId = -1;
-          return RedirectToAction("Index", "Home");
+            AppUser.Logout(sessionId);
+            ViewBag.sessionId = -1;
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet("/User/Display/{sessionId}")]
         public ActionResult Display(int sessionId)
         {
-          ViewBag.sessionId = sessionId;
-          Cart myCart = new Cart(sessionId);
-          AppUser myUser = AppUser.Find(myCart.GetUserId());
+            ViewBag.sessionId = sessionId;
+            Cart myCart = new Cart(sessionId);
+            AppUser myUser = AppUser.Find(myCart.GetUserId());
 
-          return View(myUser);
-        View
+            return View(myUser);
+        }
     }
 }

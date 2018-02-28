@@ -151,10 +151,27 @@ namespace SimpleCart.Models
       }
       return totalCost;
     }
+    //True if items were removed from cart_items. DO not check if those items are now in orders table.
     public bool Checkout()
     {
-      
-        return false;
+        bool outputState = true;
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        //Casting and Executing Commands.
+        MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO orders SELECT * FROM cart_items WHERE user_id = @userId; DELETE FROM cart_items WHERE user_id = @userId;";
+        MySqlParameter userId = new MySqlParameter ("@userId", this.GetUserId());
+        cmd.Parameters.Add(userId);
+        cmd.ExecuteNonQuery();
+        cmd.CommandText = @"SELECT * FROM cart_items WHERE user_id = @userId;";
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        //Contains built in method .Read()
+        while(rdr.Read())
+        {
+            outputState = false;
+        }
+        conn.Dispose();
+        return outputState;
     }
   }
 }
