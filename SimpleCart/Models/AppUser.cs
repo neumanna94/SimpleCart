@@ -186,6 +186,52 @@ namespace SimpleCart.Models
       conn.Dispose();
     }
 
+    public static List<string> Forgot(string name, string login, string email)
+    {
+      List<string> info = new List<string>();
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM users WHERE name=@userName AND login=@userLogin AND email=@userEmail;";
+
+      MySqlParameter userName = new MySqlParameter("@userName", name);
+      MySqlParameter userLogin = new MySqlParameter("@userLogin", login);
+      MySqlParameter userPassword = new MySqlParameter("@userEmail", email);
+      cmd.Parameters.Add(userName);
+      cmd.Parameters.Add(userLogin);
+      cmd.Parameters.Add(userPassword);
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+      bool flag = false;
+      int myUserId = 0;
+
+      while (rdr.Read())
+      {
+        flag = true;
+        myUserId = rdr.GetInt32(0);
+      }
+
+      rdr.Dispose();
+      if (flag)
+      {
+        cmd.CommandText = @"SELECT * FROM users WHERE id = @userId;";
+
+        MySqlParameter userId = new MySqlParameter("@userId", myUserId);
+        cmd.Parameters.Add(userId);
+        MySqlDataReader rdr2 = cmd.ExecuteReader() as MySqlDataReader;
+        while (rdr2.Read())
+        {
+            string tempLogin = rdr2.GetString(1);
+            info.Add(tempLogin);
+            string tempPass = rdr2.GetString(2);
+            info.Add(tempPass);
+        }
+      }
+      conn.Dispose();
+      return info;
+    }
+
     public static AppUser Find(int userId)
     {
       MySqlConnection conn = DB.Connection();
