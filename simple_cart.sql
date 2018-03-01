@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 01, 2018 at 08:19 PM
+-- Generation Time: Mar 01, 2018 at 09:50 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -166,7 +166,11 @@ INSERT INTO `sessions` (`id`, `user_id`, `session_id`) VALUES
 (43, 8, 2134827),
 (44, 9, 270196),
 (45, 7, 2426605),
-(47, 7, 2660312);
+(47, 7, 2660312),
+(48, 10, 3852827),
+(49, 10, 8668409),
+(50, 10, 9227666),
+(51, 10, 5088959);
 
 -- --------------------------------------------------------
 
@@ -217,15 +221,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `password`, `name`, `email`, `address`) VALUES
-(1, 'Alex', 'Alex', 'Alex', 'Alex', '0'),
-(2, 'Alex', 'Alex', 'John', 'Lol', '0'),
-(3, 'Alex', 'Alex', 'Alex', 'Alex', '0'),
-(4, 'Justin', 'Justin', 'Justin', 'Justin', '0'),
-(5, 'Ernest', 'Ernest', 'Ernest', 'Ernest@Ernest.com', '0'),
-(6, 'f', 'f', 'f', 'f', '0'),
-(7, 'Ernie', 'Ernie', 'Ernie', 'Ernie', '0'),
-(8, 'Josh', 'Josh', 'Josh', 'Josh', 'Josh'),
-(9, 'Jamie', 'Jamie', 'Jamie', 'Jamie', 'Jamie');
+(10, 'Alex', '$2a$10$mVtD2o/IY5mYisqt5j0h/ObjUCyJzMtA9uGAETpot/cs6ootCcq..', 'Alex', 'Alex', 'Alex');
 
 --
 -- Indexes for dumped tables
@@ -304,7 +300,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `tags`
 --
@@ -314,7 +310,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
