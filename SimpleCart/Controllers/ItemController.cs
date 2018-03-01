@@ -24,7 +24,6 @@ namespace SimpleCart.Controllers
                 Cart myCart = new Cart(sessionId);
                 int myUserId = myCart.GetUserId();
                 AppUser myUser = AppUser.Find(myUserId);
-                Console.WriteLine(myUser.GetName());
                 ViewBag.myUserName = myUser.GetName();
                 return View("AllItems", Item.GetAll(inputOrderBy));
             }
@@ -54,7 +53,6 @@ namespace SimpleCart.Controllers
             Cart myCart = new Cart(sessionId);
             int myUserId = myCart.GetUserId();
             AppUser myUser = AppUser.Find(myUserId);
-            Console.WriteLine(myUser.GetName());
             ViewBag.myUserName = myUser.GetName();
 
             List<Tag> myTags = myItem.GetTags();
