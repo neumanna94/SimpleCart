@@ -114,8 +114,24 @@ namespace SimpleCart.Controllers
             string login = info[0];
             string password = info[1];
             int sessionId = AppUser.Login(login, password);
-            return RedirectToAction("Display", "Item", new {sessionId=sessionId});
+            ViewBag.sessionId = sessionId;
+            return RedirectToAction("PasswordForm", new {sessionId=sessionId});
         }
 
+        [HttpPost("User/Forgot/Password/{sessionId}")]
+        public ActionResult PasswordForm(int sessionId)
+        {
+            ViewBag.sessionId = sessionId;
+            Cart myCart = new Cart(sessionId);
+            AppUser myUser = AppUser.Find(myCart.GetUserId());
+            string password1 = Request.Form["passwordForgot"];
+            string password2 = Request.Form["passwordForgot2"];
+            if (password1 != password2)
+            {
+                return RedirectToAction("PasswordForm", new {sessionId=sessionId});
+            }
+            AppUser.UpdatePass(password1);
+            return RedirectToAction("LoginAction", new {sessionId = sessionId});
+        }
     }
 }
