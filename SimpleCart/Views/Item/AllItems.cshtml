@@ -14,7 +14,17 @@
         <button type="submit" class="btn">Sort</button>
       </form>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <h6><strong>Select By Tag</strong></h6>
+      <form action='/Item/SortByTag/@ViewBag.sessionId' method='get' id="orderByForm">
+        <select class="form-control" name="tagId">
+          @foreach (var tag in ViewBag.tags)
+          {
+            <option value="@tag.GetId()">@tag.GetName()</option>
+          }
+        </select>
+        <button type="submit" class="btn">Sort</button>
+      </form>
     </div>
   </div>
     <div class="container">
@@ -46,3 +56,9 @@
       }
     </div>
 </div>
+
+<style type="text/css">
+  select {
+    width: 125px !important;
+  }
+</style>

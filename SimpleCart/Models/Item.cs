@@ -173,12 +173,10 @@ namespace SimpleCart.Models
                 MySqlParameter myTagId = new MySqlParameter("@tagId" + i.ToString(), tag.GetId());
                 cmd.Parameters.Add(myTagId);
                 cmd.CommandText += stringSegment;
-                Console.WriteLine(cmd.CommandText);
                 i++;
             }
 
             cmd.CommandText = cmd.CommandText.TrimEnd(new char[]{' ', 'O', 'R', ' '}) + ";";
-            Console.WriteLine(cmd.CommandText);
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 

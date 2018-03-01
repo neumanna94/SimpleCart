@@ -12,7 +12,7 @@ namespace SimpleCart.Controllers
         [HttpGet("/")]
         public ActionResult Index()
         {
-            return RedirectToAction("Display", "Item", new {id=-1});
+            return RedirectToAction("Display", "Item", new {sessionId=-1});
         }
     }
 }

@@ -45,7 +45,30 @@ namespace SimpleCart.Models
             conn.Dispose();
         }
 
-        public Tag Find(int id)
+        public static List<Tag> GetAll()
+        {
+            List<Tag> myTags = new List<Tag>();
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM tags;";
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while(rdr.Read())
+            {
+                int id = rdr.GetInt32(0);
+                string name = rdr.GetString(1);
+                Tag myTag = new Tag(name);
+                myTag.SetId(id);
+                myTags.Add(myTag);
+            }
+
+            conn.Dispose();
+            return myTags;
+        }
+
+        public static Tag Find(int id)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
