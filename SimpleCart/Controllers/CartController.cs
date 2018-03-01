@@ -54,7 +54,6 @@ namespace SimpleCart.Controllers
       List<Item> myItems = myCart.GetItems();
       ViewBag.totalCost = totalCost;
       ViewBag.sessionId = sessionId;
-      Console.WriteLine(myCart.Checkout());
 
       AppUser myUser = AppUser.Find(myCart.GetUserId());
       ViewBag.myUserName = myUser.GetName();

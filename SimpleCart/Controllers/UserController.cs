@@ -70,6 +70,9 @@ namespace SimpleCart.Controllers
             ViewBag.sessionId = sessionId;
             Cart myCart = new Cart(sessionId);
             AppUser myUser = AppUser.Find(myCart.GetUserId());
+            Console.WriteLine("MyUser Name: " + myUser.GetName());
+            Console.WriteLine("MyUser Login: " + myUser.GetLogin());
+            Console.WriteLine("MyUser Password: " + myUser.GetPassword());
             ViewBag.myUserName = myUser.GetName();
 
             return View(myUser);
@@ -89,14 +92,24 @@ namespace SimpleCart.Controllers
             string password2 = Request.Form["passInput2"];
             string address = Request.Form["addressInput"];
             string email = Request.Form["emailInput"];
+            // string name = "testName";
+            // string login = "testLogin";
+            // string password = "testPassword";
+            // string password2 = "testPassword";
+            // string address = "testAddress";
+            // string email = "testEmail";
 
             if(password != password2)
             {
+                Console.WriteLine("Passwords Not Equal");
                 return RedirectToAction("Display", new {id = sessionId});
-            }
-            AppUser.Update(name, login, password, address, email, myCart.GetUserId());
+            } else {
+                Console.WriteLine("Passwords Equal");
+                AppUser.Update(name, login, password, address, email, myCart.GetUserId());
+                myUser.SetId(myCart.GetUserId());
+                return RedirectToAction("Display", new {id = sessionId});
 
-            return RedirectToAction("Display", new {id = sessionId});
+            }
         }
 
     }

@@ -75,7 +75,6 @@ namespace SimpleCart.Models
       while(rdr.Read())
       {
         tempLogin = rdr.GetString(0);
-        Console.WriteLine(tempLogin);
       }
 
       conn.Close();
@@ -140,10 +139,8 @@ namespace SimpleCart.Models
       }
 
       rdr.Dispose();
-      Console.WriteLine("Flag is "+ flag);
       if (flag)
       {
-        Console.WriteLine("Logged in successfully");
         cmd.CommandText = @"INSERT INTO sessions (user_id, session_id) VALUES (@userId, @sessionId);";
 
         MySqlParameter userId = new MySqlParameter("@userId", myUserId);
@@ -207,11 +204,11 @@ namespace SimpleCart.Models
       while (rdr.Read())
       {
         id = rdr.GetInt32(0);
-        name = rdr.GetString(1);
-        login = rdr.GetString(2);
-        password = rdr.GetString(3);
-        address = rdr.GetString(5);
+        login = rdr.GetString(1);
+        password = rdr.GetString(2);
+        name = rdr.GetString(3);
         email = rdr.GetString(4);
+        address = rdr.GetString(5);
       }
 
       AppUser myUser = new AppUser(name, login, password, address, email);
@@ -251,7 +248,7 @@ namespace SimpleCart.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"UPDATE users SET login=@login, password = @password, name = @name, email = @email, address = @address WHERE id = @userId;";
+        cmd.CommandText = @"UPDATE users SET login=@login, password=@password, name=@name, email=@email, address=@address WHERE id=@userId;";
 
         MySqlParameter tempName = new MySqlParameter("@name", name);
         MySqlParameter tempLogin = new MySqlParameter("@login", login);
@@ -259,7 +256,6 @@ namespace SimpleCart.Models
         MySqlParameter tempAddress = new MySqlParameter("@address", address);
         MySqlParameter tempEmail = new MySqlParameter("@email", email);
         MySqlParameter tempUserId = new MySqlParameter("@userId", userId);
-        Console.WriteLine("Name: " + tempName.Value + " Login: " + tempLogin.Value + " Password: " + tempPassword.Value + " Address: " + tempAddress.Value + " Email: " + tempEmail.Value + " ID: " + tempUserId.Value);
 
         cmd.Parameters.Add(tempName);
         cmd.Parameters.Add(tempLogin);
