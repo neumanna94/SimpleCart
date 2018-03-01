@@ -87,22 +87,9 @@ namespace SimpleCart.Controllers
             string address = Request.Form["addressInput"];
             string email = Request.Form["emailInput"];
 
-<<<<<<< HEAD
-
-            if(password != password2)
-            {
-                return RedirectToAction("Display", new {sessionId = sessionId});
-            } else {
-                AppUser.Update(name, login, password, address, email, myCart.GetUserId());
-                myUser.SetId(myCart.GetUserId());
-                return RedirectToAction("Display", new {sessionId = sessionId});
-
-            }
-=======
             AppUser.Update(name, login, address, email, myCart.GetUserId());
             myUser.SetId(myCart.GetUserId());
             return RedirectToAction("Display", new {id = sessionId});
->>>>>>> master
         }
 
 
@@ -122,11 +109,7 @@ namespace SimpleCart.Controllers
             List<string> info = AppUser.Forgot(name, username, email);
             if (info.Count == 0)
             {
-<<<<<<< HEAD
                 return RedirectToAction("Forgot", new {sessionId = -1 });
-=======
-                return RedirectToAction("Forgot", new { sessionId = -1 });
->>>>>>> master
             }
             string login = info[0];
             string password = info[1];
