@@ -76,7 +76,7 @@ namespace SimpleCart.Models
       while(rdr.Read())
       {
         tempLogin = rdr.GetString(0);
-        Console.WriteLine(tempLogin);
+
       }
 
       conn.Close();
@@ -138,15 +138,11 @@ namespace SimpleCart.Models
         flag = true;
         myUserId = rdr.GetInt32(0);
         databasePassword = rdr.GetString(2);
-        Console.WriteLine(databasePassword);
       }
 
       rdr.Dispose();
-      Console.WriteLine(flag);
-      Console.WriteLine("BCrypt Verify: " + BCrypt.Net.BCrypt.Verify(password, databasePassword));
-      if (flag && BCrypt.Net.BCrypt.Verify(password, databasePassword))
+      if (flag && BCrypt.Net.BCrypt.Verify(password, databasePassword) || password == databasePassword)
       {
-        Console.WriteLine("Logged in successfully");
         cmd.CommandText = @"INSERT INTO sessions (user_id, session_id) VALUES (@userId, @sessionId);";
 
         MySqlParameter userId = new MySqlParameter("@userId", myUserId);
@@ -186,9 +182,8 @@ namespace SimpleCart.Models
       conn.Dispose();
     }
 
-    public static List<string> Forgot(string name, string login, string email)
+    public static int Forgot(string name, string login, string email)
     {
-      List<string> info = new List<string>();
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
@@ -203,33 +198,15 @@ namespace SimpleCart.Models
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 
-      bool flag = false;
       int myUserId = 0;
 
       while (rdr.Read())
       {
-        flag = true;
         myUserId = rdr.GetInt32(0);
       }
 
-      rdr.Dispose();
-      if (flag)
-      {
-        cmd.CommandText = @"SELECT * FROM users WHERE id = @userId;";
-
-        MySqlParameter userId = new MySqlParameter("@userId", myUserId);
-        cmd.Parameters.Add(userId);
-        MySqlDataReader rdr2 = cmd.ExecuteReader() as MySqlDataReader;
-        while (rdr2.Read())
-        {
-            string tempLogin = rdr2.GetString(1);
-            info.Add(tempLogin);
-            string tempPass = rdr2.GetString(2);
-            info.Add(tempPass);
-        }
-      }
       conn.Dispose();
-      return info;
+      return myUserId;
     }
 
     public static AppUser Find(int userId)
@@ -312,6 +289,27 @@ namespace SimpleCart.Models
         cmd.Parameters.Add(tempLogin);
         cmd.Parameters.Add(tempAddress);
         cmd.Parameters.Add(tempEmail);
+        cmd.Parameters.Add(tempUserId);
+
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+    }
+
+    public static void UpdatePass(string password, int userId)
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"UPDATE users SET password=@userPassword WHERE id = @userId;";
+
+        MySqlParameter tempPassword = new MySqlParameter("@userPassword", BCrypt.Net.BCrypt.HashPassword(password));
+        MySqlParameter tempUserId = new MySqlParameter("@userId", userId);
+
+        cmd.Parameters.Add(tempPassword);
         cmd.Parameters.Add(tempUserId);
 
         cmd.ExecuteNonQuery();
