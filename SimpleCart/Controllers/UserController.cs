@@ -90,13 +90,40 @@ namespace SimpleCart.Controllers
             string address = Request.Form["addressInput"];
             string email = Request.Form["emailInput"];
 
+
             if(password != password2)
             {
                 return RedirectToAction("Display", new {id = sessionId});
-            }
-            AppUser.Update(name, login, password, address, email, myCart.GetUserId());
+            } else {
+                AppUser.Update(name, login, password, address, email, myCart.GetUserId());
+                myUser.SetId(myCart.GetUserId());
+                return RedirectToAction("Display", new {id = sessionId});
 
-            return RedirectToAction("Display", new {id = sessionId});
+            }
+        }
+
+        [HttpGet("User/Forgot/{sessionId}")]
+        public ActionResult Forgot(int sessionId)
+        {
+            ViewBag.sessionId = -1;
+            return View();
+        }
+
+        [HttpPost("User/Forgot/Update")]
+        public ActionResult ForgotAction()
+        {
+            string name = Request.Form["nameForgot"];
+            string username = Request.Form["usernameForgot"];
+            string email = Request.Form["emailForgot"];
+            List<string> info = AppUser.Forgot(name, username, email);
+            if (info.Count == 0)
+            {
+                return RedirectToAction("Forgot", new { id = -1 });
+            }
+            string login = info[0];
+            string password = info[1];
+            int sessionId = AppUser.Login(login, password);
+            return RedirectToAction("Display", "Item", new {id=sessionId});
         }
 
     }
