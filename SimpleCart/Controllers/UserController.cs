@@ -82,14 +82,12 @@ namespace SimpleCart.Controllers
             AppUser myUser = AppUser.Find(myCart.GetUserId());
             ViewBag.myUserName = myUser.GetName();
 
-
             string name = Request.Form["nameInput"];
             string login = Request.Form["username"];
-            string password = Request.Form["passInput"];
-            string password2 = Request.Form["passInput2"];
             string address = Request.Form["addressInput"];
             string email = Request.Form["emailInput"];
 
+<<<<<<< HEAD
 
             if(password != password2)
             {
@@ -100,7 +98,13 @@ namespace SimpleCart.Controllers
                 return RedirectToAction("Display", new {sessionId = sessionId});
 
             }
+=======
+            AppUser.Update(name, login, address, email, myCart.GetUserId());
+            myUser.SetId(myCart.GetUserId());
+            return RedirectToAction("Display", new {id = sessionId});
+>>>>>>> master
         }
+
 
         [HttpGet("User/Forgot/{sessionId}")]
         public ActionResult Forgot(int sessionId)
@@ -118,7 +122,11 @@ namespace SimpleCart.Controllers
             List<string> info = AppUser.Forgot(name, username, email);
             if (info.Count == 0)
             {
+<<<<<<< HEAD
                 return RedirectToAction("Forgot", new {sessionId = -1 });
+=======
+                return RedirectToAction("Forgot", new { sessionId = -1 });
+>>>>>>> master
             }
             string login = info[0];
             string password = info[1];
