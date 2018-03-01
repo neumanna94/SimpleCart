@@ -56,6 +56,7 @@ namespace SimpleCart.Controllers
       ViewBag.sessionId = sessionId;
       AppUser myUser = AppUser.Find(myCart.GetUserId());
       ViewBag.myUserName = myUser.GetName();
+      myCart.Checkout();
       return View(myItems);
     }
 

@@ -85,7 +85,9 @@ hr {
   color: orange;
 }
 .loginCol button {
-  margin-left: 30%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto; 
   margin-top: -.5%;
 }
 .loginCol button a {

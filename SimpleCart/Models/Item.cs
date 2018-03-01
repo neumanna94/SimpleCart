@@ -188,7 +188,6 @@ namespace SimpleCart.Models
                 if (!itemIds.Contains(thisItemId))
                 {
                     itemIds.Add(thisItemId);
-                    Console.WriteLine(itemIds.Count);
                 }
             }
 
@@ -201,7 +200,7 @@ namespace SimpleCart.Models
             {
                 conn.Open();
                 myItemId.Value = itemId;
-                rdr = cmd.ExecuteReader() as MySqlDataReader; 
+                rdr = cmd.ExecuteReader() as MySqlDataReader;
                 while (rdr.Read())
                 {
                     int tempItemId = rdr.GetInt32(0);
