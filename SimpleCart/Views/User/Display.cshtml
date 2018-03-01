@@ -4,7 +4,7 @@
 
 <div class = "container">
   <div class = "row">
-    <div class="col-md-12" id="resultCol">
+    <div class="col-md-12 loginCol">
       <form id="updateForm" action="/User/Update/@ViewBag.sessionId" method="post">
         <h1>Greetings, @Model.GetName() </h1>
         <h3>Username: @Model.GetLogin() </h3>
@@ -65,13 +65,6 @@
   .updateButton {
     float: right;
   }
-  #resultCol{
-    background-color: white;
-    padding: 30px;
-    box-shadow: 0 0 10px black inset;
-    border: 2px solid #ffb444;
-  }
-
   .form-group {
     background-color: #fff6ef;
     padding: 10px;

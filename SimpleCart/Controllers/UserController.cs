@@ -93,29 +93,56 @@ namespace SimpleCart.Controllers
         }
 
 
-        [HttpGet("User/Forgot/{sessionId}")]
+        [HttpGet("/User/Forgot/{sessionId}")]
         public ActionResult Forgot(int sessionId)
         {
             ViewBag.sessionId = -1;
             return View();
         }
 
-        [HttpPost("User/Forgot/Update")]
-        public ActionResult ForgotAction()
+        [HttpPost("/User/Forgot/Update/{sessionId}")]
+        public ActionResult ForgotAction(int sessionId)
         {
             string name = Request.Form["nameForgot"];
             string username = Request.Form["usernameForgot"];
             string email = Request.Form["emailForgot"];
-            List<string> info = AppUser.Forgot(name, username, email);
-            if (info.Count == 0)
+            int userId = AppUser.Forgot(name, username, email);
+            if (userId == 0)
             {
                 return RedirectToAction("Forgot", new {sessionId = -1 });
             }
-            string login = info[0];
-            string password = info[1];
-            int sessionId = AppUser.Login(login, password);
-            return RedirectToAction("Display", "Item", new {sessionId=sessionId});
+            AppUser myUser = AppUser.Find(userId);
+            sessionId = AppUser.Login(myUser.GetLogin(), myUser.GetPassword());
+            ViewBag.sessionId = sessionId;
+            ViewBag.myUserName = myUser.GetName();
+            return RedirectToAction("PasswordForm", new { sessionId = sessionId });
         }
 
+        [HttpGet("/User/Forgot/Password/Update/{sessionId}")]
+        public ActionResult PasswordForm(int sessionId)
+        {
+            ViewBag.sessionId = sessionId;
+            Cart myCart = new Cart(sessionId);
+            AppUser myUser = AppUser.Find(myCart.GetUserId());
+            ViewBag.myUserName = myUser.GetName();
+            return View(new { sessionId = sessionId });
+        }
+
+        [HttpPost("/User/Forgot/Password/{sessionId}")]
+        public ActionResult PasswordAction(int sessionId)
+        {
+            ViewBag.sessionId = sessionId;
+            Cart myCart = new Cart(sessionId);
+            AppUser myUser = AppUser.Find(myCart.GetUserId());
+            ViewBag.myUserName = myUser.GetName();
+            string password1 = Request.Form["passwordForgot"];
+            string password2 = Request.Form["passwordForgot2"];
+            if (password1 != password2)
+            {
+                return RedirectToAction("PasswordForm", new {sessionId = sessionId});
+            }
+            AppUser.UpdatePass(password1, myUser.GetId());
+            return RedirectToAction("Display", "Item", new { sessionId  = sessionId });
+        }
     }
 }
