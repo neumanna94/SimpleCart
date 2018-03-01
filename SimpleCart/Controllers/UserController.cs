@@ -109,7 +109,7 @@ namespace SimpleCart.Controllers
             List<string> info = AppUser.Forgot(name, username, email);
             if (info.Count == 0)
             {
-                return RedirectToAction("Forgot", new { sessionId = -1 });
+                return RedirectToAction("Forgot", new {sessionId = -1 });
             }
             string login = info[0];
             string password = info[1];

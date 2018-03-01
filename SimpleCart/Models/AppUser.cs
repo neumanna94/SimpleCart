@@ -308,13 +308,11 @@ namespace SimpleCart.Models
         MySqlParameter tempEmail = new MySqlParameter("@email", email);
         MySqlParameter tempUserId = new MySqlParameter("@userId", userId);
 
-
         cmd.Parameters.Add(tempName);
         cmd.Parameters.Add(tempLogin);
         cmd.Parameters.Add(tempAddress);
         cmd.Parameters.Add(tempEmail);
         cmd.Parameters.Add(tempUserId);
-
 
         cmd.ExecuteNonQuery();
         conn.Close();
