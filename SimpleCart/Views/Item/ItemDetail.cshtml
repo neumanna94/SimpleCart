@@ -27,6 +27,20 @@
         </div>
     </div>
 
+    <div class="conatiner">
+      <div class="row">
+        <div class="col-md-7">
+          <h2>Recommended Items</h2>
+          <ul>
+            @foreach (var item in ViewBag.relatedItems)
+            {
+              <li>@item.GetName()</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
 
 <script src="text/javascript">
 $(document).ready(function(){

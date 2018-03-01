@@ -3,14 +3,30 @@
 }
 
 <div class = "container">
-  <h6><strong>Order By</strong></h6>
-  <form action='/Item/@ViewBag.sessionId' method='get' id="orderByForm">
-    <select class="form-control" name="orderBy">
-      <option value="name">Alphabetically</option>
-      <option value="cost">Cost</option>
-    </select>
-    <button type="submit" class="btn">Sort</button>
-  </form>
+  <div class="row">
+    <div class="col-md-2">
+      <h6><strong>Order By</strong></h6>
+      <form action='/Item/@ViewBag.sessionId' method='get' id="orderByForm">
+        <select class="form-control" name="orderBy">
+          <option value="name">Alphabetically</option>
+          <option value="cost">Cost</option>
+        </select>
+        <button type="submit" class="btn">Sort</button>
+      </form>
+    </div>
+    <div class="col-md-2">
+      <h6><strong>Select By Tag</strong></h6>
+      <form action='/Item/SortByTag/@ViewBag.sessionId' method='get' id="orderByForm">
+        <select class="form-control" name="tagId">
+          @foreach (var tag in ViewBag.tags)
+          {
+            <option value="@tag.GetId()">@tag.GetName()</option>
+          }
+        </select>
+        <button type="submit" class="btn">Sort</button>
+      </form>
+    </div>
+  </div>
     <div class="container">
     @foreach (var item in Model)
     {
@@ -40,3 +56,9 @@
       }
     </div>
 </div>
+
+<style type="text/css">
+  select {
+    width: 125px !important;
+  }
+</style>
