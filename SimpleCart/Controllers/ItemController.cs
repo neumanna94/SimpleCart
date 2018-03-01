@@ -38,7 +38,6 @@ namespace SimpleCart.Controllers
             List<Tag> myTags = new List<Tag>(){Tag.Find(Int32.Parse(Request.Query["tagId"]))};
             Console.WriteLine("Number of tags: " + myTags.Count);
             List<Item> myItems = Item.GetAllByTags(myTags);
-            Console.WriteLine(myItems[0].GetName());
             ViewBag.tags = Tag.GetAll();
             return View("AllItems", Item.GetAllByTags(myTags));
         }
@@ -56,7 +55,7 @@ namespace SimpleCart.Controllers
             ViewBag.myUserName = myUser.GetName();
 
             List<Tag> myTags = myItem.GetTags();
-            Console.WriteLine(myTags.Count); 
+            Console.WriteLine(myTags.Count);
             ViewBag.relatedItems = Item.GetAllByTags(myTags);
 
 

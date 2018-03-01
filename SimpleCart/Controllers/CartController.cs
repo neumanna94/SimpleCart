@@ -9,12 +9,12 @@ namespace SimpleCart.Controllers
 {
   public class CartController : Controller
   {
-    [HttpGet("/Cart/Display/{id}")]
-    public ActionResult Display(int id)
+    [HttpGet("/Cart/Display/{sessionId}")]
+    public ActionResult Display(int sessionId)
     {
-      Cart myCart = new Cart(id);
+      Cart myCart = new Cart(sessionId);
       List<Item> myItems = myCart.GetItems();
-      ViewBag.sessionId = id;
+      ViewBag.sessionId = sessionId;
 
       AppUser myUser = AppUser.Find(myCart.GetUserId());
       ViewBag.myUserName = myUser.GetName();
@@ -27,7 +27,7 @@ namespace SimpleCart.Controllers
     {
       Cart myCart = new Cart(sessionId);
       myCart.AddItem(itemId);
-      return RedirectToAction("Display", new {id = sessionId});
+      return RedirectToAction("Display", new {sessionId = sessionId});
     }
 
     [HttpGet("/Cart/DeleteItem/{itemId}/{sessionId}")]
@@ -35,7 +35,7 @@ namespace SimpleCart.Controllers
     {
       Cart myCart = new Cart(sessionId);
       myCart.DeleteItem(itemId);
-      return RedirectToAction("Display", new {id = sessionId});
+      return RedirectToAction("Display", new {sessionId = sessionId});
     }
     [HttpGet("/Cart/Confirm/{sessionId}")]
     public ActionResult Confirm(int sessionId)
