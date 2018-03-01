@@ -62,7 +62,7 @@ namespace SimpleCart.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO items (name, cost, description, imgUrl, stock ) VALUES (@itemName, @itemCost, @itemDescription, @itemImgUrl, @itemStock;";
+            cmd.CommandText = @"INSERT INTO items (name, cost, description, imgUrl, stock ) VALUES (@itemName, @itemCost, @itemDescription, @itemImgUrl, @itemStock);";
 
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@ItemName";
@@ -128,6 +128,79 @@ namespace SimpleCart.Models
             }
             return allItems;
         }
+
+        public List<Tag> GetTags()
+        {
+            List<Tag> myTags = new List<Tag>();
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = "SELECT tags.* FROM items JOIN items_tags ON (items.id = items_tags.item_id) JOIN tags ON (tags.id = items_tags.tag_id) WHERE items.id = @item_id;";
+            MySqlParameter itemId = new MySqlParameter("@item_id", this.GetId());
+            cmd.Parameters.Add(itemId);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int tagId = (int) rdr.GetInt32(0);
+                string tagName = rdr.GetString(1);
+                Tag myTag = new Tag(tagName);
+                myTag.SetId(tagId);
+                myTags.Add(myTag);
+            }
+            conn.Dispose();
+            return myTags;
+        }
+
+        public static List<Item> GetAllByTags(List<Tag> tags)
+        {
+            List<Item> myItems = new List<Item>();
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = "SELECT items.* FROM tags JOIN items_tags ON (tags.id = items_tags.tag_id) JOIN items ON (items.id = items_tags.item_id) WHERE ";
+
+            //Dynamically creates commandtext to return only unique items
+
+            int i = 1;
+            foreach (Tag tag in tags)
+            {
+                int id = tag.GetId();
+                string stringSegment = "tags.id = @tagId" + i.ToString() + " OR ";
+
+                MySqlParameter myTagId = new MySqlParameter("@tagId" + i.ToString(), tag.GetId());
+                cmd.Parameters.Add(myTagId);
+                cmd.CommandText += stringSegment;
+                Console.WriteLine(cmd.CommandText);
+                i++;
+            }
+
+            cmd.CommandText = cmd.CommandText.TrimEnd(new char[]{' ', 'O', 'R', ' '}) + ";";
+            Console.WriteLine(cmd.CommandText);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while (rdr.Read())
+            {
+                int itemId = rdr.GetInt32(0);
+                string name = rdr.GetString(1);
+                string description = rdr.GetString(2);
+                double cost = rdr.GetDouble(3);
+                string imgUrl = rdr.GetString(4);
+                int stock = rdr.GetInt32(5);
+
+
+                Item newItem = new Item(name, description, cost, imgUrl, stock);
+                newItem.SetId(itemId);
+                myItems.Add(newItem);
+            }
+
+            conn.Dispose();
+            return myItems;
+        }
+
         public static Item Find(int id)
         {
             MySqlConnection conn = DB.Connection();
@@ -168,6 +241,24 @@ namespace SimpleCart.Models
             }
             return newItem;
         }
+
+        public void AddTag(int tagId)
+        {
+          MySqlConnection conn = DB.Connection();
+          conn.Open();
+          MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+          cmd.CommandText = @"INSERT INTO items_tags (item_id, tag_id) VALUES (@itemId, @tagId);";
+
+          MySqlParameter itemId = new MySqlParameter("@itemId", _id);
+          MySqlParameter myTagId = new MySqlParameter ("@tagId", tagId);
+          cmd.Parameters.Add(itemId);
+          cmd.Parameters.Add(myTagId);
+
+          cmd.ExecuteNonQuery();
+
+          conn.Dispose();
+        }
+
         public static void Delete(int idDelete)
         {
             MySqlConnection conn = DB.Connection();
