@@ -74,13 +74,14 @@ namespace SimpleCart.Controllers
 
             return View(myUser);
         }
-        [HttpPost("/User/Update/{sessiodId}")]
+        [HttpPost("/User/Update/{sessionId}")]
         public ActionResult Update(int sessionId)
         {
             ViewBag.sessionId = sessionId;
             Cart myCart = new Cart(sessionId);
             AppUser myUser = AppUser.Find(myCart.GetUserId());
             ViewBag.myUserName = myUser.GetName();
+
 
             string name = Request.Form["nameInput"];
             string login = Request.Form["username"];
@@ -93,7 +94,8 @@ namespace SimpleCart.Controllers
             {
                 return RedirectToAction("Display", new {id = sessionId});
             }
-            //Add logic for updating a row.
+            AppUser.Update(name, login, password, address, email, myCart.GetUserId());
+
             return RedirectToAction("Display", new {id = sessionId});
         }
 

@@ -5,7 +5,7 @@
 <div class = "container">
   <div class = "row">
     <div class="col-md-12" id="resultCol">
-      <form id="updateForm" action="User/Update/@ViewBag.sessionId" method="post">
+      <form id="updateForm" action="/User/Update/@ViewBag.sessionId" method="post">
         <h1>Greetings, @Model.GetName() </h1>
         <h3>Username: @Model.GetLogin() </h3>
         <input type="hidden" name="username" value="@Model.GetLogin()" id="username">
@@ -18,7 +18,7 @@
         <h3>Password: @Model.GetPassword()  <button type="button" class="btn updateButton"><span class="glyphicon glyphicon-cog"></span></button></h3>
         <div class="form-group initHidden" id="passGroup">
           <label for="passInput">Password:</label>
-          <input type="text" name="passInput" id="passInput">
+          <input type="text" name="passInput" id="passInput" value="@Model.GetPassword()">
           <br>
           <label for="passInput2">Confirm Password:</label>
           <input type="text" name="passInput2" id="passInput2" value="@Model.GetPassword()">
@@ -41,6 +41,7 @@
     </div>
   </div>
 </div>
+
 <script type="text/javascript">
 
   function isAnyButtonVisible(index){
@@ -68,6 +69,7 @@
 
   });
 </script>
+
 <style type="text/css">
   .updateButton {
     float: right;
