@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 28, 2018 at 10:41 PM
+-- Generation Time: Mar 01, 2018 at 08:19 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -41,27 +41,14 @@ CREATE TABLE `cart_items` (
 INSERT INTO `cart_items` (`id`, `item_id`, `user_id`) VALUES
 (1, 1, 0),
 (2, 1, 0),
-(3, 1, 7),
-(4, 2, 7),
-(10, 1, 0),
-(11, 2, 0),
-(14, 2, 0),
-(16, 3, 7),
-(17, 1, 0),
-(19, 1, 0),
-(20, 2, 0),
-(24, 4, 8),
-(26, 11, 8),
-(28, 1, 9),
-(29, 4, 9),
-(30, 12, 8),
-(31, 12, 8),
-(32, 12, 8),
-(40, 12, 0),
-(48, 1, 3),
-(49, 1, 10),
-(50, 3, 10),
-(51, 1, 3);
+(8, 12, 7),
+(10, 4, 3),
+(11, 7, 3),
+(12, 7, 3),
+(14, 4, 8),
+(16, 12, 7),
+(17, 12, 7),
+(18, 12, 7);
 
 -- --------------------------------------------------------
 
@@ -98,6 +85,52 @@ INSERT INTO `items` (`id`, `name`, `description`, `cost`, `img`, `stock`, `categ
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `items_tags`
+--
+
+CREATE TABLE `items_tags` (
+  `id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `items_tags`
+--
+
+INSERT INTO `items_tags` (`id`, `item_id`, `tag_id`) VALUES
+(1, 1, 3),
+(2, 1, 6),
+(3, 2, 1),
+(4, 2, 8),
+(5, 2, 21),
+(6, 3, 2),
+(7, 3, 5),
+(8, 3, 8),
+(9, 4, 2),
+(10, 4, 4),
+(11, 4, 8),
+(12, 5, 2),
+(13, 5, 4),
+(14, 5, 10),
+(15, 5, 8),
+(16, 6, 2),
+(17, 6, 4),
+(18, 7, 6),
+(19, 7, 10),
+(20, 7, 21),
+(21, 7, 22),
+(22, 8, 21),
+(23, 11, 2),
+(24, 11, 8),
+(25, 12, 2),
+(26, 12, 5),
+(27, 12, 9),
+(28, 12, 8);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -106,27 +139,6 @@ CREATE TABLE `orders` (
   `item_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `item_id`, `user_id`) VALUES
-(13, 4, 3),
-(15, 11, 3),
-(27, 2, 3),
-(33, 7, 3),
-(34, 1, 5),
-(35, 2, 5),
-(36, 7, 5),
-(37, 2, 3),
-(38, 2, 3),
-(39, 1, 3),
-(41, 12, 3),
-(42, 12, 3),
-(44, 1, 10),
-(46, 4, 10),
-(47, 4, 10);
 
 -- --------------------------------------------------------
 
@@ -145,52 +157,45 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `session_id`) VALUES
-(1, 7, 8662512),
-(2, 7, 2566708),
-(3, 7, 2353310),
-(4, 7, 9652176),
-(5, 7, 7710214),
-(6, 7, 9701293),
-(7, 7, 3731627),
-(8, 7, 8525560),
-(9, 7, 9837677),
-(10, 7, 6675973),
-(11, 7, 5063154),
-(12, 7, 4567346),
-(13, 7, 825017),
-(14, 7, 9758851),
-(15, 7, 1574393),
-(16, 7, 2936200),
-(17, 7, 2139882),
-(18, 7, 6537167),
-(19, 7, 5088484),
-(20, 7, 8448477),
-(21, 7, 7756578),
-(22, 7, 6137959),
-(23, 7, 8211286),
-(24, 7, 4755726),
-(25, 7, 3838671),
-(26, 7, 1027066),
-(27, 7, 3062587),
-(28, 7, 2542551),
-(29, 7, 9311023),
-(30, 3, 1071876),
-(31, 3, 2536527),
-(32, 3, 302927),
-(33, 3, 1617724),
-(34, 3, 9050515),
-(35, 7, 4799581),
-(36, 3, 8546186),
-(37, 3, 4843280),
-(38, 3, 6414434),
-(39, 8, 9264226),
-(43, 3, 4176086),
-(48, 3, 4051213),
-(49, 3, 3589034),
-(50, 5, 7117850),
-(51, 5, 8506519),
-(52, 3, 6392262),
-(53, 3, 5274448);
+(34, 7, 1971778),
+(35, 7, 3399776),
+(36, 7, 975696),
+(37, 7, 5939173),
+(38, 7, 2950445),
+(41, 7, 8482274),
+(43, 8, 2134827),
+(44, 9, 270196),
+(45, 7, 2426605),
+(47, 7, 2660312);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
+--
+
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`) VALUES
+(1, 'book'),
+(2, 'clothing'),
+(3, 'tax'),
+(4, 'men\'s'),
+(5, 'women\'s'),
+(6, 'technology'),
+(7, 'computer'),
+(8, 'outdoors'),
+(9, 'baby'),
+(10, 'tools'),
+(21, 'home'),
+(22, 'computer');
 
 -- --------------------------------------------------------
 
@@ -219,9 +224,8 @@ INSERT INTO `users` (`id`, `login`, `password`, `name`, `email`, `address`) VALU
 (5, 'Ernest', 'Ernest', 'Ernest', 'Ernest@Ernest.com', '0'),
 (6, 'f', 'f', 'f', 'f', '0'),
 (7, 'Ernie', 'Ernie', 'Ernie', 'Ernie', '0'),
-(8, 'joshd', 'password', 'Josh', 'joshd@gmail.com', 'somewhere Abe'),
-(9, 'Tyler', 'ThisIsAPassword', 'Alex', 'Alex', 'somewhere Abe'),
-(10, 'Alexander', 'Alexander', 'Alexander', 'Alexander', 'Alexander');
+(8, 'Josh', 'Josh', 'Josh', 'Josh', 'Josh'),
+(9, 'Jamie', 'Jamie', 'Jamie', 'Jamie', 'Jamie');
 
 --
 -- Indexes for dumped tables
@@ -242,6 +246,12 @@ ALTER TABLE `items`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `items_tags`
+--
+ALTER TABLE `items_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -252,6 +262,12 @@ ALTER TABLE `orders`
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tags`
+--
+ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -268,27 +284,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `items_tags`
+--
+ALTER TABLE `items_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
