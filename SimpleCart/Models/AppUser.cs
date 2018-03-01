@@ -245,5 +245,36 @@ namespace SimpleCart.Models
             conn.Dispose();
         }
     }
+
+    public static void Update(string name,string login,string password,string address,string email, int userId)
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"UPDATE users SET login=@login, password = @password, name = @name, email = @email, address = @address WHERE id = @userId;";
+
+        MySqlParameter tempName = new MySqlParameter("@name", name);
+        MySqlParameter tempLogin = new MySqlParameter("@login", login);
+        MySqlParameter tempPassword = new MySqlParameter("@password", password);
+        MySqlParameter tempAddress = new MySqlParameter("@address", address);
+        MySqlParameter tempEmail = new MySqlParameter("@email", email);
+        MySqlParameter tempUserId = new MySqlParameter("@userId", userId);
+        Console.WriteLine("Name: " + tempName.Value + " Login: " + tempLogin.Value + " Password: " + tempPassword.Value + " Address: " + tempAddress.Value + " Email: " + tempEmail.Value + " ID: " + tempUserId.Value);
+
+        cmd.Parameters.Add(tempName);
+        cmd.Parameters.Add(tempLogin);
+        cmd.Parameters.Add(tempPassword);
+        cmd.Parameters.Add(tempAddress);
+        cmd.Parameters.Add(tempEmail);
+        cmd.Parameters.Add(tempUserId);
+
+
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+    }
   }
 }
