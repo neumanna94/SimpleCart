@@ -26,21 +26,71 @@
             </div>
         </div>
     </div>
+    <br>
+    <h2>Recommended Items</h2>
+    <br>
+    <div id="recommendations" class="scrollmenu">
+        @foreach (var item in ViewBag.relatedItems)
+        {
+          string name = "";
+          @if (@item.GetName().Length <= 20)
+          {
+            name = item.GetName();
+          }
+          else if (@item.GetName().Length > 20)
+          {
+            name = item.GetName().Substring(0, 20) + "...";
+          }
 
-    <div class="conatiner">
-      <div class="row">
-        <div class="col-md-7">
-          <h2>Recommended Items</h2>
-          <ul>
-            @foreach (var item in ViewBag.relatedItems)
-            {
-              <li>@item.GetName()</li>
-            }
-          </ul>
-        </div>
-      </div>
+          <div class="recommendationCardContainer">
+            <div class="recommendationCard">
+              <a href="/Item/Detail/@item.GetId()/@ViewBag.sessionId"><p>@name</p></a>
+              <a href="/Item/Detail/@item.GetId()/@ViewBag.sessionId"><img src="@item.GetImgUrl()"/></a>
+            </div>
+          </div>
+        }
     </div>
 
+<style src="text/css">
+  div.scrollmenu {
+    background-color: #262F3E;
+    overflow: auto;
+    white-space: nowrap;
+    opacity: 0.7;
+  }
+
+  div.scrollmenu:hover {
+    box-shadow: 0 0 10px black;
+    opacity: 1;
+  }
+
+  div.scrollmenu .recommendationCardContainer {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    width: 250px;
+  }
+
+  .scrollmenu a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .scrollmenu a:hover {
+    color: #ffb444;
+  }
+
+  a img {
+    width: 200px;
+    height: 200px;
+  }
+
+  div.scrollmenu a:hover {
+    background-color: #777;
+  }
+</style>
 
 <script src="text/javascript">
 $(document).ready(function(){

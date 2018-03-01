@@ -160,7 +160,7 @@ namespace SimpleCart.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = "SELECT items.* FROM tags JOIN items_tags ON (tags.id = items_tags.tag_id) JOIN items ON (items.id = items_tags.item_id) WHERE ";
+            cmd.CommandText = "SELECT items.id FROM tags JOIN items_tags ON (tags.id = items_tags.tag_id) JOIN items ON (items.id = items_tags.item_id) WHERE ";
 
             //Dynamically creates commandtext to return only unique items
 
@@ -180,21 +180,44 @@ namespace SimpleCart.Models
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
 
+            List<int> itemIds = new List<int>();
+
             while (rdr.Read())
             {
-                int itemId = rdr.GetInt32(0);
-                string name = rdr.GetString(1);
-                string description = rdr.GetString(2);
-                double cost = rdr.GetDouble(3);
-                string imgUrl = rdr.GetString(4);
-                int stock = rdr.GetInt32(5);
-
-
-                Item newItem = new Item(name, description, cost, imgUrl, stock);
-                newItem.SetId(itemId);
-                myItems.Add(newItem);
+                int thisItemId = (int) rdr.GetInt32(0);
+                if (!itemIds.Contains(thisItemId))
+                {
+                    itemIds.Add(thisItemId);
+                    Console.WriteLine(itemIds.Count);
+                }
             }
 
+            conn.Close();
+            cmd.CommandText = @"SELECT * FROM items WHERE id=@itemId;";
+            MySqlParameter myItemId = new MySqlParameter("@itemId", 0);
+            cmd.Parameters.Add(myItemId);
+
+            foreach (int itemId in itemIds)
+            {
+                conn.Open();
+                myItemId.Value = itemId;
+                rdr = cmd.ExecuteReader() as MySqlDataReader; 
+                while (rdr.Read())
+                {
+                    int tempItemId = rdr.GetInt32(0);
+                    string name = rdr.GetString(1);
+                    string description = rdr.GetString(2);
+                    double cost = rdr.GetDouble(3);
+                    string imgUrl = rdr.GetString(4);
+                    int stock = rdr.GetInt32(5);
+
+
+                    Item newItem = new Item(name, description, cost, imgUrl, stock);
+                    newItem.SetId(tempItemId);
+                    myItems.Add(newItem);
+                }
+                conn.Close();
+            }
             conn.Dispose();
             return myItems;
         }
