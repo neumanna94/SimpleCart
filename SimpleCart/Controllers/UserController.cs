@@ -30,9 +30,9 @@ namespace SimpleCart.Controllers
             {
                 string login = username;
                 int sessionId = AppUser.Login(login, password);
-                return RedirectToAction("Display", "Item", new {id=sessionId});
+                return RedirectToAction("Display", "Item", new {sessionId=sessionId});
             }
-            return RedirectToAction("Form", new {id=-1});
+            return RedirectToAction("Form", new {sessionId=-1});
         }
 
         [HttpGet("/User/Login")]
@@ -53,7 +53,7 @@ namespace SimpleCart.Controllers
             {
               return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Display", "Item", new {id=sessionId});
+            return RedirectToAction("Display", "Item", new {sessionId=sessionId});
         }
 
         [HttpGet("/User/Logout/{sessionId}")]
@@ -93,11 +93,11 @@ namespace SimpleCart.Controllers
 
             if(password != password2)
             {
-                return RedirectToAction("Display", new {id = sessionId});
+                return RedirectToAction("Display", new {sessionId = sessionId});
             } else {
                 AppUser.Update(name, login, password, address, email, myCart.GetUserId());
                 myUser.SetId(myCart.GetUserId());
-                return RedirectToAction("Display", new {id = sessionId});
+                return RedirectToAction("Display", new {sessionId = sessionId});
 
             }
         }
@@ -118,12 +118,12 @@ namespace SimpleCart.Controllers
             List<string> info = AppUser.Forgot(name, username, email);
             if (info.Count == 0)
             {
-                return RedirectToAction("Forgot", new { id = -1 });
+                return RedirectToAction("Forgot", new {sessionId = -1 });
             }
             string login = info[0];
             string password = info[1];
             int sessionId = AppUser.Login(login, password);
-            return RedirectToAction("Display", "Item", new {id=sessionId});
+            return RedirectToAction("Display", "Item", new {sessionId=sessionId});
         }
 
     }
