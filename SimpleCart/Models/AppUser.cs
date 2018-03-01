@@ -90,7 +90,7 @@ namespace SimpleCart.Models
         conn = DB.Connection();
         conn.Open();
         cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"INSERT INTO users (name, login, password, address, email) VALUES (@userName, @userLogin, @userPassword, @userAddress, @userEmail);";
+        cmd.CommandText = @"INSERT INTO users (login, password, name, email, address) VALUES (@userLogin, @userPassword, @userName, @userEmail, @userAddress);";
 
         MySqlParameter name = new MySqlParameter("@userName", _name);
         MySqlParameter login = new MySqlParameter("@userLogin", _login);
@@ -210,11 +210,11 @@ namespace SimpleCart.Models
       while (rdr.Read())
       {
         id = rdr.GetInt32(0);
-        name = rdr.GetString(1);
-        login = rdr.GetString(2);
-        password = rdr.GetString(3);
-        address = rdr.GetString(5);
+        login = rdr.GetString(1);
+        password = rdr.GetString(2);
+        name = rdr.GetString(3);
         email = rdr.GetString(4);
+        address = rdr.GetString(5);
       }
 
       AppUser myUser = new AppUser(name, login, password, address, email);
